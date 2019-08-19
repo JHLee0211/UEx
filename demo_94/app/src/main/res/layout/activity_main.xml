@@ -1,87 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.Activity.MainActivity">
+    tools:context="com.example.Activity.MainActivity"
+    android:orientation="vertical"
+    >
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:background="#FFFFFF"
-        android:minHeight="?attr/actionBarSize"
-        android:paddingBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/include"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+    <TextView
+        android:id="@+id/main_text_id"
+        android:text="Input ID : "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-        <ImageView
-            android:id="@+id/fitgotuicon"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:baselineAlignBottom="false"
-            android:paddingRight="50dp"
-            android:src="@drawable/icon5"
-            tools:layout_editor_absoluteX="16dp" />
+    <EditText
+        android:id="@+id/main_edit_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-    </androidx.appcompat.widget.Toolbar>
+    <TextView
+        android:id="@+id/main_text_password"
+        android:text="Input Password : "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-    <include
-        android:id="@+id/include"
-        layout="@layout/content_main"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="56dp"
-        app:layout_anchor="@+id/toolbar"
-        app:layout_anchorGravity="bottom|center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+    <EditText
+        android:id="@+id/main_edit_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tablayout"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include">
+    <Button
+        android:id="@+id/main_button_saveButton"
+        android:text="저장하기"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/hometraining"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="홈트레이닝"
-            android:textSize ="10sp"/>
+    <Button
+        android:id="@+id/main_button_outputButton"
+        android:text="결과보기"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/trainer_match"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="PT매치"
-            android:textSize="10sp"/>
+    <ListView
+        android:id="@+id/main_listview_outputView"
+        android:layout_width="wrap_content"
+        android:layout_height="325dp" />
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/data_analysis"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="데이터분석"
-            android:textSize="10sp"/>
+    <Button
+        android:id="@+id/main_button_loginButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="로그인" />
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/mypage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="내페이지"
-            android:textSize="10sp"/>
-    </com.google.android.material.tabs.TabLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
