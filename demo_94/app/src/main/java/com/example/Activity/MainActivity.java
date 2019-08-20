@@ -1,6 +1,8 @@
 package com.example.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -32,7 +34,7 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity {
     private EditText id, password;
     private Button btn_send, btn_result, btn_login;
-    private String curip = "192.168.100.24";
+    private String curip = "192.168.0.9";
 
     private static final String TAG_RESULTS = "result";
     private static final String TAG_ID = "id";
