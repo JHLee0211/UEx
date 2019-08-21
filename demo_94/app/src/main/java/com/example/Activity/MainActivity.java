@@ -1,8 +1,6 @@
 package com.example.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -13,10 +11,8 @@ import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.Activity.LoginActivity;
 import com.example.demo_94.R;
 
 import org.json.JSONArray;
@@ -32,9 +28,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
-    private EditText id, password;
-    private Button btn_send, btn_result, btn_login;
-    private String curip = "192.168.0.9";
+    private Button btn_result, btn_login, btn_signup;
+    private String curip = "70.12.227.10";
 
     private static final String TAG_RESULTS = "result";
     private static final String TAG_ID = "id";
@@ -52,27 +47,15 @@ public class MainActivity extends AppCompatActivity {
 
         NetworkUtil.setNetworkPolicy();
 
-        id = (EditText)findViewById(R.id.main_edit_id);
-        password = (EditText)findViewById(R.id.main_edit_password);
-        btn_send = (Button)findViewById(R.id.main_button_saveButton);
         btn_result = (Button)findViewById(R.id.main_button_outputButton);
         btn_login = (Button)findViewById(R.id.main_button_loginButton);
+        btn_signup = (Button)findViewById(R.id.main_button_signupButton);
 
-        btn_send.setOnClickListener(new View.OnClickListener() {
+        btn_signup.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                try {
-                    PHPRequest request = new PHPRequest("http://"+curip+"/SSAFYProject/customerinformation_insert.php");
-                    String result = request.PhPtest(String.valueOf(id.getText()),String.valueOf(password.getText()));
-                    if(result.equals("1")){
-                        Toast.makeText(getApplication(),"들어감",Toast.LENGTH_SHORT).show();
-                    }
-                    else{
-                        Toast.makeText(getApplication(),"안 들어감",Toast.LENGTH_SHORT).show();
-                    }
-                }
-                catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
+                Intent intent = new Intent(getApplicationContext(), com.example.Activity.SignUpActivity.class);
+                intent.putExtra("message", getApplicationContext().toString());
+                startActivity(intent);
             }
         });
 
@@ -156,5 +139,14 @@ public class MainActivity extends AppCompatActivity {
 
         GetDataJSON g = new GetDataJSON();
         g.execute(url);
+    }
+
+    public static class SignUpActivity extends AppCompatActivity {
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_sign_up);
+        }
     }
 }

@@ -13,6 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name="com.example.Activity.SignUpActivity"></activity>
+        <activity android:name="com.example.Activity.MainActivity$SignUpActivity" />
         <activity android:name="com.example.Activity.LoginActivity" />
         <activity android:name="com.example.Activity.MainActivity">
             <intent-filter>
