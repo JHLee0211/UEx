@@ -29,7 +29,7 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
     private Button btn_result, btn_login, btn_signup;
-    private String curip = "70.12.227.10";
+    private String curip = new getIP().getInstance();
 
     private static final String TAG_RESULTS = "result";
     private static final String TAG_ID = "id";

@@ -38,16 +38,4 @@
         android:layout_height="wrap_content"
         android:text="회원가입" />
 
-    <TextView
-        android:id="@+id/signup_text_textText"
-        android:text="테스트 값입니다."
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/signup_button_testButton"
-        android:text="테스트버튼"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
 </LinearLayout>

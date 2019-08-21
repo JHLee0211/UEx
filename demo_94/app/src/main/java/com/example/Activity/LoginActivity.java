@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button btn_login;
     private EditText id, password;
     private TextView testview;
-    private String curip = "70.12.227.10";
+    private String curip = new getIP().getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
