@@ -8,8 +8,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,9 +21,12 @@ import com.example.demo_94.R;
 import java.net.MalformedURLException;
 
 public class SignUpActivity extends AppCompatActivity {
-    private EditText id, password;
+    private EditText id, password, name;
+    private TextView sex;
+    private Spinner sexspinner;
     private Button btn_signup;
     private String curip = new getIP().getInstance();
+    private String sexes[] = {"남자", "여자"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +38,26 @@ public class SignUpActivity extends AppCompatActivity {
 
         id = (EditText)findViewById(R.id.signup_edit_id);
         password = (EditText)findViewById(R.id.signup_edit_password);
+        name = (EditText)findViewById(R.id.signup_edit_name);
+        sex = (TextView)findViewById(R.id.signup_text_sex);
+        sexspinner = (Spinner)findViewById(R.id.signup_spinner_sex);
         btn_signup = (Button)findViewById(R.id.signup_button_signupButton);
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sexes);
+        arrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        sexspinner.setAdapter(arrayAdapter);
+
+        sexspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                sex.setText(sexes[i]);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                sex.setText("성별을 선택하세요.");
+            }
+        });
 
         btn_signup.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
