@@ -28,46 +28,35 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
-    private Button btn_result, btn_login, btn_signup;
-    private String curip = new getIP().getInstance();
-
-    private static final String TAG_RESULTS = "result";
-    private static final String TAG_ID = "id";
-    private static final String TAG_PASSWORD = "password";
-
-    String myJSON;
-    JSONArray peoples = null;
-    ArrayList<HashMap<String, String>> personList;
-    ListView list;
+    private Button main_btn_output, main_btn_login, main_btn_signup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         NetworkUtil.setNetworkPolicy();
 
-        btn_result = (Button)findViewById(R.id.main_button_outputButton);
-        btn_login = (Button)findViewById(R.id.main_button_loginButton);
-        btn_signup = (Button)findViewById(R.id.main_button_signupButton);
+        main_btn_output = (Button)findViewById(R.id.main_btn_output);
+        main_btn_login = (Button)findViewById(R.id.main_btn_login);
+        main_btn_signup = (Button)findViewById(R.id.main_btn_signup);
 
-        btn_signup.setOnClickListener(new View.OnClickListener() {
+        main_btn_signup.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), com.example.Activity.SignUpActivity.class);
+                Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
                 intent.putExtra("message", getApplicationContext().toString());
                 startActivity(intent);
             }
         });
 
-        btn_result.setOnClickListener(new View.OnClickListener() {
+        main_btn_output.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                list = (ListView)findViewById(R.id.main_listview_outputView);
-                personList = new ArrayList<HashMap<String, String>>();
-                getData("http://"+curip+"/SSAFYProject/customerinformation_search.php");
+                Intent intent = new Intent(getApplicationContext(), TotalListActivity.class);
+                intent.putExtra("message", getApplicationContext().toString());
+                startActivity(intent);
             }
         });
 
-        btn_login.setOnClickListener(new View.OnClickListener() {
+        main_btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
@@ -75,78 +64,5 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
-
-    protected void showList() {
-        try {
-            JSONObject jsonObj = new JSONObject(myJSON);
-            peoples = jsonObj.getJSONArray(TAG_RESULTS);
-
-            for(int i=0; i<peoples.length(); i++) {
-                JSONObject c = peoples.getJSONObject(i);
-                String id = c.getString(TAG_ID);
-                String password = c.getString(TAG_PASSWORD);
-
-                HashMap<String, String> persons = new HashMap<String, String>();
-
-                persons.put(TAG_ID, id);
-                persons.put(TAG_PASSWORD, password);
-
-                personList.add(persons);
-            }
-
-            ListAdapter adapter = new SimpleAdapter(MainActivity.this, personList, R.layout.list_item, new String[]{TAG_ID, TAG_PASSWORD}, new int[]{R.id.item_text_id, R.id.item_text_password});
-            list.setAdapter((adapter));
-        }
-
-        catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void getData(String url) {
-        class GetDataJSON extends AsyncTask<String, Void, String> {
-            @Override
-            protected String doInBackground(String... strings) {
-                String uri = strings[0];
-                BufferedReader bufferedReader = null;
-                try {
-                    URL url = new URL(uri);
-                    HttpURLConnection con = (HttpURLConnection)url.openConnection();
-                    StringBuilder sb = new StringBuilder();
-
-                    bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-
-                    String json;
-
-                    while((json = bufferedReader.readLine()) != null) {
-                        sb.append(json+"\n");
-                    }
-
-                    return sb.toString().trim();
-                } catch(Exception e) {
-                    e.printStackTrace();
-                    return e.getMessage();
-                }
-            }
-
-            @Override
-            protected void onPostExecute(String s) {
-                myJSON = s;
-                showList();
-            }
-        }
-
-        GetDataJSON g = new GetDataJSON();
-        g.execute(url);
-    }
-
-    public static class SignUpActivity extends AppCompatActivity {
-
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_sign_up);
-        }
     }
 }

@@ -3,6 +3,7 @@ package com.example.Activity;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,113 +19,115 @@ import android.widget.Toast;
 
 import com.example.demo_94.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.net.MalformedURLException;
 import java.util.Calendar;
 
 public class SignUpActivity extends AppCompatActivity {
-    private EditText id, password, name;
-    private Spinner sexspinner, yearspinner, monthspinner, dayspinner;
-    private Button btn_signup;
+    private EditText signup_edit_id, signup_edit_password, signup_edit_name;
+    private Spinner signup_spinner_sex, signup_spinner_year, signup_spinner_month, signup_spinner_day;
+    private Button signup_btn_signup;
     private String curip = new getIP().getInstance();
-    private String sexes[] = {"성별을 선택하세요.", "남자", "여자"};
+    private String sexes[] = {"성별을 선택하세요.", "man", "woman"};
     private String years[], months[], days[];
-    private TextView test;
+    private TextView signup_text_test;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
         init();
 
         Intent intent = getIntent();
         Log.d("ACTIVITY_LC", intent.getStringExtra("message"));
 
-        id = (EditText)findViewById(R.id.signup_edit_id);
-        password = (EditText)findViewById(R.id.signup_edit_password);
-        name = (EditText)findViewById(R.id.signup_edit_name);
-        sexspinner = (Spinner)findViewById(R.id.signup_spinner_sex);
-        yearspinner = (Spinner)findViewById(R.id.signup_spinner_year);
-        monthspinner = (Spinner)findViewById(R.id.signup_spinner_month);
-        dayspinner = (Spinner)findViewById(R.id.signup_spinner_day);
-        btn_signup = (Button)findViewById(R.id.signup_button_signupButton);
+        signup_edit_id = (EditText)findViewById(R.id.signup_edit_id);
+        signup_edit_password = (EditText)findViewById(R.id.signup_edit_password);
+        signup_edit_name = (EditText)findViewById(R.id.signup_edit_name);
+        signup_spinner_sex = (Spinner)findViewById(R.id.signup_spinner_sex);
+        signup_spinner_year = (Spinner)findViewById(R.id.signup_spinner_year);
+        signup_spinner_month = (Spinner)findViewById(R.id.signup_spinner_month);
+        signup_spinner_day = (Spinner)findViewById(R.id.signup_spinner_day);
+        signup_btn_signup = (Button)findViewById(R.id.signup_btn_signup);
 
         ArrayAdapter<String> dayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, days);
         dayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        dayspinner.setAdapter(dayAdapter);
+        signup_spinner_day.setAdapter(dayAdapter);
 
-        dayspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        signup_spinner_day.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                dayspinner.setSelection(1);
+                signup_spinner_day.setSelection(1);
             }
         });
 
         ArrayAdapter<String> monthAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, months);
         monthAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        monthspinner.setAdapter(monthAdapter);
+        signup_spinner_month.setAdapter(monthAdapter);
 
-        monthspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        signup_spinner_month.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                monthspinner.setSelection(1);
+                signup_spinner_month.setSelection(1);
             }
         });
 
         ArrayAdapter<String> yearAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, years);
         yearAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        yearspinner.setAdapter(yearAdapter);
+        signup_spinner_year.setAdapter(yearAdapter);
 
-        yearspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        signup_spinner_year.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                yearspinner.setSelection(1);
+                signup_spinner_year.setSelection(1);
             }
         });
 
         ArrayAdapter<String> sexAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sexes);
         sexAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        sexspinner.setAdapter(sexAdapter);
+        signup_spinner_sex.setAdapter(sexAdapter);
 
-        sexspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        signup_spinner_sex.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                sexspinner.setSelection(1);
+                signup_spinner_sex.setSelection(1);
             }
         });
 
-        btn_signup.setOnClickListener(new View.OnClickListener() {
+        signup_btn_signup.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 try {
-                    PHPRequest request = new PHPRequest("http://"+curip+"/SSAFYProject/customerinformation_insert.php");
-                    String curid = String.valueOf(id.getText());
-                    String curpassword = String.valueOf(password.getText());
-                    String curname = String.valueOf(name.getText());
-                    String curbirth = yearspinner.getSelectedItem().toString() + "-" + monthspinner.getSelectedItem().toString() + "-" + dayspinner.getSelectedItem().toString();
-                    String cursex = sexspinner.getSelectedItem().toString();
-                    String result = request.PhPtest(curid, curpassword, curname, curbirth, cursex);
+                    SignUpTest signuptest = new SignUpTest("http://"+curip+"/SSAFYProject/customerinformation_insert.php");
+                    String curid = String.valueOf(signup_edit_id.getText());
+                    String curpassword = String.valueOf(signup_edit_password.getText());
+                    String curname = String.valueOf(signup_edit_name.getText());
+                    String curbirth = signup_spinner_year.getSelectedItem().toString() + "-" + signup_spinner_month.getSelectedItem().toString() + "-" + signup_spinner_day.getSelectedItem().toString();
+                    String cursex = signup_spinner_sex.getSelectedItem().toString();
+                    String result = signuptest.signuptest(curid, curpassword, curname, curbirth, cursex);
                     if(result.equals("1")){
-                        Toast.makeText(getApplication(),"들어감",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplication(),getString(R.string.success_signin),Toast.LENGTH_SHORT).show();
                         AlertDialog.Builder alert = new AlertDialog.Builder(SignUpActivity.this);
-                        alert.setTitle("Error");
-                        //alert.setMessage("회원가입에 성공했습니다.");
-                        alert.setMessage(curid + " " + curpassword + " " + curname + " " + curbirth + " " + cursex);
+                        alert.setTitle("Success");
+                        alert.setMessage(getString(R.string.success_signin));
                         alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -135,26 +138,46 @@ public class SignUpActivity extends AppCompatActivity {
                         alert.show();
                     }
                     else{
-                        Toast.makeText(getApplication(),"안 들어감",Toast.LENGTH_SHORT).show();
-                        AlertDialog.Builder alert = new AlertDialog.Builder(SignUpActivity.this);
-                        alert.setTitle("Error");
-                        alert.setMessage("회원가입에 실패했습니다.");
-                        alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                            }
-                        });
-                        alert.show();
+                        DuplicateCheckTest duplicatechecktest = new DuplicateCheckTest("http://"+curip+"/SSAFYProject/customerinformation_duplicatecheck.php");
+                        String checkresult = duplicatechecktest.duplicatechecktest(curid);
+
+                        JSONObject jsonobj = new JSONObject(checkresult);
+                        String myid = jsonobj.getJSONArray("result").getJSONObject(0).getString("id");
+
+                        if(curid.equals(myid)) {
+                            Toast.makeText(getApplication(), getString(R.string.duplicate_id), Toast.LENGTH_SHORT).show();
+                            AlertDialog.Builder alert = new AlertDialog.Builder(SignUpActivity.this);
+                            alert.setTitle("Error");
+                            alert.setMessage(getString(R.string.duplicate_id));
+                            alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                }
+                            });
+                            alert.show();
+                        }
+                        else {
+                            Toast.makeText(getApplication(),getString(R.string.error_signin),Toast.LENGTH_SHORT).show();
+                            AlertDialog.Builder alert = new AlertDialog.Builder(SignUpActivity.this);
+                            alert.setTitle("Error");
+                            alert.setMessage(R.string.error_signin);
+                            alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                }
+                            });
+                            alert.show();
+                        }
                     }
                 }
-                catch (MalformedURLException e) {
+                catch (MalformedURLException | JSONException e) {
                     e.printStackTrace();
                 }
                 catch (NumberFormatException e) {
                     e.printStackTrace();
                     AlertDialog.Builder alert = new AlertDialog.Builder(SignUpActivity.this);
                     alert.setTitle("Error");
-                    alert.setMessage("생년월일을 확인해 주세요");
+                    alert.setMessage(getString(R.string.check_birth));
                     alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {

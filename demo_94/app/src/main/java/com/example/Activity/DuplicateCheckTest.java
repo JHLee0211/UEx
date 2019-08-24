@@ -9,16 +9,16 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class LoginTest {
+public class DuplicateCheckTest {
     private URL url;
     private BufferedReader br;
-    public LoginTest(String url) throws MalformedURLException {
+    public DuplicateCheckTest(String url) throws MalformedURLException {
         this.url = new URL(url);
     }
 
-    public String logintest(final String id, final String password) {
+    public String duplicatechecktest(final String id) {
         try {
-            String postData = "id=" + id + "&" + "password=" + password;
+            String postData = "id=" + id;
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             conn.setRequestMethod("POST");
@@ -43,7 +43,7 @@ public class LoginTest {
             return sb.toString().trim();
         }
         catch (Exception e) {
-            Log.i("logintest", e.getMessage());
+            Log.i("duplicatechecktest", e.getMessage());
             return null;
         }
     }

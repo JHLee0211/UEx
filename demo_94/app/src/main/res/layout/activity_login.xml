@@ -37,7 +37,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/login_button_loginbutton"
+        android:id="@+id/login_btn_login"
         android:layout_width="wrap_content"
         android:layout_height="128dp"
         android:text="로그인" />

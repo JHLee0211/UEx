@@ -27,9 +27,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class LoginActivity extends AppCompatActivity {
-    private Button btn_login;
-    private EditText id, password;
-    private TextView testview;
+    private Button login_btn_login;
+    private EditText login_edit_id, login_edit_password;
+    private TextView login_text_test;
     private String curip = new getIP().getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,17 +39,17 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Log.d("ACTIVITY_LC", intent.getStringExtra("message"));
 
-        btn_login = (Button)findViewById(R.id.login_button_loginbutton);
-        id = (EditText)findViewById(R.id.login_edit_id);
-        password = (EditText)findViewById(R.id.login_edit_password);
-        testview = (TextView)findViewById(R.id.login_text_test);
+        login_btn_login = (Button)findViewById(R.id.login_btn_login);
+        login_edit_id = (EditText)findViewById(R.id.login_edit_id);
+        login_edit_password = (EditText)findViewById(R.id.login_edit_password);
+        login_text_test = (TextView)findViewById(R.id.login_text_test);
 
-        btn_login.setOnClickListener(new View.OnClickListener() {
+        login_btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
                     LoginTest logintest = new LoginTest("http://"+curip+"/SSAFYProject/customerinformation_login.php");
-                    String jsonString = logintest.logintest(String.valueOf(id.getText()), String.valueOf(password.getText()));
+                    String jsonString = logintest.logintest(String.valueOf(login_edit_id.getText()), String.valueOf(login_edit_password.getText()));
 
                     JSONObject jsonobj = new JSONObject(jsonString);
                     JSONArray mypassword = jsonobj.getJSONArray("result");
@@ -57,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
                     if(mypassword.length() == 0) {
                         AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
                         alert.setTitle("Error");
-                        alert.setMessage("비밀번호가 존재하지 않습니다.");
+                        alert.setMessage(getString(R.string.notexist_password));
                         alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -70,16 +70,16 @@ public class LoginActivity extends AppCompatActivity {
                         JSONObject c = mypassword.getJSONObject(0);
                         String pw = c.getString("password");
 
-                        testview.setText(pw.equals(password.getText().toString())+"");
+                        login_text_test.setText(pw.equals(login_edit_password.getText().toString())+"");
 
-                        if(pw.equals(password.getText().toString())) {
+                        if(pw.equals(login_edit_password.getText().toString())) {
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(intent);
                         }
                         else {
                             AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
                             alert.setTitle("Error");
-                            alert.setMessage("비밀번호가 틀렸습니다.");
+                            alert.setMessage(getString(R.string.error_password));
                             alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {

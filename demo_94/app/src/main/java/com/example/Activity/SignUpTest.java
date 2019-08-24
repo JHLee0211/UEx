@@ -11,10 +11,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class PHPRequest {
+public class SignUpTest {
     private URL url;
 
-    public PHPRequest(String url) throws MalformedURLException {
+    public SignUpTest(String url) throws MalformedURLException {
         this.url = new URL(url);
     }
 
@@ -30,7 +30,7 @@ public class PHPRequest {
         return jsonHtml.toString().trim();
     }
 
-    public String PhPtest(final String id, final String password, final String name, final String birth, final String sex) {
+    public String signuptest(final String id, final String password, final String name, final String birth, final String sex) {
         try {
             String postData = "id=" + id + "&" + "password=" + password + "&" + "name=" + name + "&" + "birth=" + birth + "&" + "sex=" + sex;
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
@@ -48,7 +48,7 @@ public class PHPRequest {
             return result;
         }
         catch (Exception e) {
-            Log.i("PHPRequest", e.getMessage());
+            Log.i("signuptest", e.getMessage());
             return null;
         }
     }

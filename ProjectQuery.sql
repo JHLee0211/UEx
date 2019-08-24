@@ -24,4 +24,6 @@ delete from customerinformation;
 drop table customerinformation;
 drop table customerinterest;
 
-select password from customerinformation where id = 'asd'
+select password from customerinformation where id = 'asd';
+
+select id from customerinformation where id = "ksccmp";

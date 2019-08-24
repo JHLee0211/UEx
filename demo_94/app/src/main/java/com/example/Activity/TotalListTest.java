@@ -9,26 +9,21 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class LoginTest {
+public class TotalListTest {
     private URL url;
     private BufferedReader br;
-    public LoginTest(String url) throws MalformedURLException {
+    public TotalListTest(String url) throws MalformedURLException {
         this.url = new URL(url);
     }
 
-    public String logintest(final String id, final String password) {
+    public String totallisttest() {
         try {
-            String postData = "id=" + id + "&" + "password=" + password;
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             conn.setRequestMethod("POST");
             conn.setConnectTimeout(5000);
             conn.setDoOutput(true);
             conn.setDoInput(true);
-            OutputStream outputStream = conn.getOutputStream();
-            outputStream.write(postData.getBytes("UTF-8"));
-            outputStream.flush();
-            outputStream.close();
 
             StringBuilder sb = new StringBuilder();
             br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -43,7 +38,7 @@ public class LoginTest {
             return sb.toString().trim();
         }
         catch (Exception e) {
-            Log.i("logintest", e.getMessage());
+            Log.i("totallisttest", e.getMessage());
             return null;
         }
     }
