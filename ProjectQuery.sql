@@ -16,14 +16,7 @@ create table customerinterest(
 );
 
 select * from customerinformation;
-
-insert into customerinformation values ('asf', 'asd', 'asd', '2019-08-24', 'man');
+select * from customerinterest;
 
 delete from customerinformation;
-
-drop table customerinformation;
-drop table customerinterest;
-
-select password from customerinformation where id = 'asd';
-
-select id from customerinformation where id = "ksccmp";
+delete from customerinterest;

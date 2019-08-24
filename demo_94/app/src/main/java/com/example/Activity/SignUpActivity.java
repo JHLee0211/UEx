@@ -135,6 +135,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 startActivity(intent);
                             }
                         });
+
                         alert.show();
                     }
                     else{

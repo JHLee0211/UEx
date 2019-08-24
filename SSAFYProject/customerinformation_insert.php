@@ -5,8 +5,10 @@
     $query = "insert into customerinformation values (".$data_stream.")";
     $result = mysqli_query($conn, $query);
 
-    if($result)
+    if($result) {
+        mysqli_query($conn, "insert into customerinterest values ('".$_POST['id']."', null, null, null)");
         echo "1";
+    }
     else
         echo "-1";
    
