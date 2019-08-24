@@ -5,7 +5,7 @@ create table customerinformation(
     password varchar(30) not null,
     name varchar(30) not null,
     birth date not null,
-    sex boolean not null
+    sex varchar(10)
 );
 
 create table customerinterest(
@@ -15,5 +15,13 @@ create table customerinterest(
     interestexam3 varchar(30)
 );
 
+select * from customerinformation;
+
+insert into customerinformation values ('asf', 'asd', 'asd', '2019-08-24', 'man');
+
+delete from customerinformation;
+
 drop table customerinformation;
 drop table customerinterest;
+
+select password from customerinformation where id = 'asd'

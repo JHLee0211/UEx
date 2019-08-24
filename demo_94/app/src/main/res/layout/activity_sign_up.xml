@@ -44,24 +44,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/signup_text_birth"
-        android:text="Input Password : "
+    <Spinner
+        android:id="@+id/signup_spinner_year"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="wrap_content"></Spinner>
 
-    <EditText
-        android:id="@+id/signup_edit_birth"
+    <Spinner
+        android:id="@+id/signup_spinner_month"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"></Spinner>
 
-    <TextView
-        android:id="@+id/signup_text_sex"
-        android:text="성별을 선택하세요."
+    <Spinner
+        android:id="@+id/signup_spinner_day"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="wrap_content"></Spinner>
 
     <Spinner
         android:id="@+id/signup_spinner_sex"
@@ -73,5 +69,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="회원가입" />
+
+    <TextView
+        android:id="@+id/signup_text_testtext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

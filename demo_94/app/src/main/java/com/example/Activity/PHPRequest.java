@@ -30,9 +30,9 @@ public class PHPRequest {
         return jsonHtml.toString().trim();
     }
 
-    public String PhPtest(final String data1, final String data2) {
+    public String PhPtest(final String id, final String password, final String name, final String birth, final String sex) {
         try {
-            String postData = "id=" + data1 + "&" + "password=" + data2;
+            String postData = "id=" + id + "&" + "password=" + password + "&" + "name=" + name + "&" + "birth=" + birth + "&" + "sex=" + sex;
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             conn.setRequestMethod("POST");
