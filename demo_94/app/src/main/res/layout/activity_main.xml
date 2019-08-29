@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     tools:context="com.example.Activity.MainActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:background="#FFFFFF"
+        android:background="@drawable/all_border"
         android:minHeight="?attr/actionBarSize"
         android:paddingBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/include"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,6 +50,7 @@
         android:id="@+id/tablayout"
         android:layout_width="match_parent"
         android:layout_height="55dp"
+        android:background="@drawable/all_border2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -83,5 +84,8 @@
             android:text="내페이지"
             android:textSize="10sp"/>
     </com.google.android.material.tabs.TabLayout>
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

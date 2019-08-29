@@ -13,8 +13,8 @@
     <string name="toggle_turn_off">NN:Off</string>
     <string name="toggle">Use NNAPI</string>
 
-    <string name="fitness"># 피트니스</string>
-    <string name="yoga"># 요가</string>'
+    <string name="interest">나의 관심 시험</string>
+    <string name="hottest">가장 핫한 시험</string>'
 
     <string name="fitness_1">운동 종류1</string>
     <string name="fitness_2">운동 종류2</string>
