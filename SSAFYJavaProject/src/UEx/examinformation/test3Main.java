@@ -2,12 +2,10 @@ package UEx.examinformation;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.sql.Date;
 import java.util.Iterator;
 
 import org.jsoup.Jsoup;
@@ -55,7 +53,7 @@ public class test3Main {
 			con = DriverManager.getConnection(URL, username, password);
 			int savecount = 0;
 			while(ie1.hasNext()) {
-				String sql = "insert into examinformation values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				String sql = "insert into examinformation values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 				pstmt = con.prepareStatement(sql);
 				String round = ie1.next().text();
 				String w_recepts[] = ie1.next().text().split(" ~ ");
@@ -73,25 +71,32 @@ public class test3Main {
 				savecount++;
 
 				pstmt.setInt(1, jmcd);
-				pstmt.setString(2, jmNm);
-				pstmt.setString(3, round);
-				pstmt.setDate(4, w_recept_start);
-				pstmt.setDate(5, w_recept_end);
-				pstmt.setDate(6, w_exam);
-				pstmt.setDate(7, w_presentation);
-				pstmt.setDate(8, p_recept_start);
-				pstmt.setDate(9, p_recept_end);
-				pstmt.setDate(10, p_exam_start);
-				pstmt.setDate(11, p_exam_end);
-				pstmt.setDate(12, p_presentation);
-				pstmt.setString(13, caution);
-				pstmt.setString(14, price);
+				pstmt.setString(2, round);
+				pstmt.setDate(3, w_recept_start);
+				pstmt.setDate(4, w_recept_end);
+				pstmt.setDate(5, w_exam);
+				pstmt.setDate(6, w_presentation);
+				pstmt.setDate(7, p_recept_start);
+				pstmt.setDate(8, p_recept_end);
+				pstmt.setDate(9, p_exam_start);
+				pstmt.setDate(10, p_exam_end);
+				pstmt.setDate(11, p_presentation);
 				
-				pstmt.executeLargeUpdate();
+				pstmt.executeUpdate();
 				
 				if(savecount == 3)
 					break;
 			}
+			
+			String sql = "insert into examinformation_sub values (?, ?, ?)";
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, jmcd);
+			pstmt.setString(2, caution);
+			pstmt.setString(3, price);
+			
+			pstmt.executeUpdate();
+			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
