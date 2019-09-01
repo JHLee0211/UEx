@@ -8,13 +8,8 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-//import com.example.Etc.MySQLiteOpenHelper;
-//import com.example.Etc.Util;
 import com.example.demo_94.R;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 public class DateDialog extends AppCompatActivity {
@@ -22,7 +17,7 @@ public class DateDialog extends AppCompatActivity {
     private static TextView routine;
     private static TextView record;
     private Context context;
-    private ArrayList<HashMap<String, String>> routines;
+//    private ArrayList<HashMap<String, String>> routines;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +29,21 @@ public class DateDialog extends AppCompatActivity {
 
         int position = intent.getExtras().getInt("position");
         ArrayList<Integer> setDate = intent.getExtras().getIntegerArrayList("array");
+
+        morning = (TextView) findViewById(R.id.morning);
+        morning.setText("08:00 IM Exam");
+        lunch = (TextView) findViewById(R.id.lunch);
+        lunch.setText("15:00 ~ 18:00 A형 시험");
+        dinner = (TextView) findViewById(R.id.dinner);
+        dinner.setText("19:00 ~ 23:00 B형 시험");
+
 //
 //        final MySQLiteOpenHelper sqliteHelper = new MySQLiteOpenHelper(a, "jelly.db", null, 3);
 //        String kakaoId = intent.getExtras().getString("kakaoId");
 //        routines = Util.SelectRoutine(kakaoId);
 
         Bundle bundle = this.getIntent().getExtras();
-        HashMap<String, Integer> PosiToDate=null;
+ /*       HashMap<String, Integer> PosiToDate=null;
         if(bundle != null) {
             PosiToDate = (HashMap<String,Integer>) bundle.getSerializable("PosiToDate");
         }
@@ -70,7 +73,7 @@ public class DateDialog extends AppCompatActivity {
                 }
             }
         }
-/*        HashSet<String> gED =  sqliteHelper.getExerciseData();
+        HashSet<String> gED =  sqliteHelper.getExerciseData();
 
         Iterator itr = PosiToDate..keySet().iterator();
         while(itr.hasNext()) {
