@@ -1,8 +1,15 @@
 package UEx.examinformation;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.util.Iterator;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 public class InitSql {
 	public static void main(String[] args) {
@@ -37,71 +44,52 @@ public class InitSql {
 			pstmt=con.prepareStatement(sql);
 			pstmt.executeUpdate();
 			
-			sql="insert into short_examination values (?, ?)";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, "1320");
-			pstmt.setString(2, "정보처리기사");
-			pstmt.executeUpdate();
+			String url = "http://www.q-net.or.kr/crf005.do?id=crf00501&gSite=Q&gId=";
+			Document doc = null;
 			
-			sql="insert into short_examination values (?, ?)";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, "2290");
-			pstmt.setString(2, "정보처리산업기사");
-			pstmt.executeUpdate();
+			doc = Jsoup.connect(url).get();
 			
-			sql="insert into short_examination values (?, ?)";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, "1104");
-			pstmt.setString(2, "금속재료기사");
-			pstmt.executeUpdate();
+			Elements element = doc.select("li");
 			
-			sql="insert into short_examination values (?, ?)";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, "1297");
-			pstmt.setString(2, "섬유기사");
-			pstmt.executeUpdate();
+			Iterator<Element> ie1 = element.select("a").iterator();
 			
-			sql="insert into short_examination values (?, ?)";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, "1350");
-			pstmt.setString(2, "도시계획기사");
-			pstmt.executeUpdate();
-			
-			sql="insert into short_examination values (?, ?)";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, "1611");
-			pstmt.setString(2, "방사선비파괴검사기사");
-			pstmt.executeUpdate();
-			
-			sql="insert into short_examination values (?, ?)";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, "9546");
-			pstmt.setString(2, "스포츠경엉관리사");
-			pstmt.executeUpdate();
-			
-			sql="insert into short_examination values (?, ?)";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, "7910");
-			pstmt.setString(2, "한식조리기능사");
-			pstmt.executeUpdate();
-			
-			/*
-			 * sql="insert into short_examination values (?, ?)";
-			 * pstmt=con.prepareStatement(sql); pstmt.setString(1, "6120");
-			 * pstmt.setString(2, "정밀측정기능사"); pstmt.executeUpdate();
-			 */
-			
-			sql="insert into short_examination values (?, ?)";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, "0210");
-			pstmt.setString(2, "화공기술사");
-			pstmt.executeUpdate();
-			
-			sql="insert into short_examination values (?, ?)";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, "7893");
-			pstmt.setString(2, "제빵기능사");
-			pstmt.executeUpdate();
+			int count = 0;
+			firstloop : while(ie1.hasNext()) {
+				Element temp = ie1.next();
+				if(temp.hasAttr("onclick")) {
+					if(temp.attr("onclick").contains("getList")) {
+						String temp2[] = temp.attr("onclick").split("'");
+						//System.out.println(temp2[1] + " " + temp2[5]);
+						
+						temp2[1] = temp2[1].equals("1") ? temp2[1] + "&obligFldCd" : temp2[1] + "&examInstiCd" ; 
+
+						url = "http://q-net.or.kr/crf005.do?id=crf00501s01&Site=Q&div="+temp2[1]+"="+temp2[5];
+						
+						doc = Jsoup.connect(url).get();
+						
+						Elements tempelement = doc.select("ul");
+						
+						Iterator<Element> tempie1 = tempelement.select("a").iterator();
+						while(tempie1.hasNext()) { 
+							Element temptemp = tempie1.next();
+							if(temptemp.hasAttr("href")) { 
+								//System.out.println(temptemp.attr("href").split("'")[1]);
+								//System.out.println(temptemp.text().split(" ")[1]);
+								String jmCd = temptemp.attr("href").split("'")[1];
+								String jmNm = temptemp.text().split(" ")[1];
+								sql="insert into short_examination values (?, ?)";
+								pstmt=con.prepareStatement(sql);
+								pstmt.setString(1, jmCd);
+								pstmt.setString(2, jmNm);
+								pstmt.executeUpdate();
+							}
+//							count++;
+//							if(count == 100)
+//								break firstloop;
+						}
+					}
+				}
+			}
 
 			System.out.println("테이블 초기화 완료");
 		} catch (Exception e) {

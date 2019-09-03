@@ -6,8 +6,10 @@ import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
+import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -63,7 +65,7 @@ public class DataInsert{
 				}
 				
 				while(ie1.hasNext()) {
-					String sqls = "insert into examinformation values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					String sqls = "insert into examinformation values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 					pstmt = con.prepareStatement(sqls);
 					String round = ie1.next().text();
 					if(round.length() <= 4 || !round.substring(0, 4).equals(cal.get(Calendar.YEAR)+"")) {
@@ -74,15 +76,26 @@ public class DataInsert{
 					for(int a=0; a<w_recepts.length; a++) {
 						System.out.println(w_recepts[a] + " " + a + " " + jmNm);
 					}
-					Date w_recept_start = Date.valueOf(w_recepts[0].replace(".", "-").trim());
-					Date w_recept_end = Date.valueOf(w_recepts[1].replace(".", "-").trim());
-					String w_exams[] = ie1.next().text().split("~");
-					Date w_exam_start = Date.valueOf(w_exams[0].replace(".", "-").trim());
-					Date w_exam_end = Date.valueOf(w_exams[0].replace(".", "-").trim());
-					if(w_exams.length != 1) {
-						w_exam_end = Date.valueOf(w_exams[1].replace(".", "-").trim());
+					String etc = "";
+					Date w_recept_start = null;
+					Date w_recept_end = null;
+					Date w_exam_start = null;
+					Date w_exam_end = null;
+					Date w_presentation = null;
+					
+					if(w_recepts.length > 1) {
+						w_recept_start = Date.valueOf(w_recepts[0].replace(".", "-").trim());
+						w_recept_end = Date.valueOf(w_recepts[1].replace(".", "-").trim());
+						String w_exams[] = ie1.next().text().split("~");
+						w_exam_start = Date.valueOf(w_exams[0].replace(".", "-").trim());
+						w_exam_end = Date.valueOf(w_exams[0].replace(".", "-").trim());
+						if(w_exams.length != 1) {
+							w_exam_end = Date.valueOf(w_exams[1].replace(".", "-").trim());
+						}
+						w_presentation = Date.valueOf(ie1.next().text().replace(".", "-"));
+					} else if(w_recepts.length == 1) {
+						etc = w_recepts[0];
 					}
-					Date w_presentation = Date.valueOf(ie1.next().text().replace(".", "-"));
 					
 					String p_recepts[] = ie1.next().text().split("~");
 					Date p_recept_start = Date.valueOf(p_recepts[0].replace(".", "-").trim());
@@ -104,6 +117,7 @@ public class DataInsert{
 					pstmt.setDate(10, p_exam_start);
 					pstmt.setDate(11, p_exam_end);
 					pstmt.setDate(12, p_presentation);
+					pstmt.setString(13, etc);
 					
 					pstmt.executeUpdate();
 				}
@@ -117,6 +131,7 @@ public class DataInsert{
 				
 				pstmt.executeUpdate();
 			}
+			System.out.println("데이터 추가 완료");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
