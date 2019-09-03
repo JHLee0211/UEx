@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
@@ -28,6 +29,8 @@ public class DataInsert{
 		
 		Calendar cal = Calendar.getInstance();
 		
+		String url = "";
+		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			con = DriverManager.getConnection(URL, username, password);
@@ -40,11 +43,12 @@ public class DataInsert{
 			while(rs.next()){ //DB에 있는 값들 가져오기
 				String jmcd=rs.getString("jmcd");
 				String jmNm=rs.getString("name");
-				String url = "http://q-net.or.kr/crf005.do?id=crf00503s02&gSite=Q&gId=&jmCd="+jmcd+"&jmInfoDivCcd=B0&jmNm="+jmNm;
+				url = "http://q-net.or.kr/crf005.do?id=crf00503s02&gSite=Q&gId=&jmCd="+jmcd+"&jmInfoDivCcd=B0&jmNm="+jmNm;
 				try {
 					doc = Jsoup.connect(url).get();
 				} catch (IOException e) {
 					e.printStackTrace();
+					System.out.println(url);
 				}
 				
 				Elements element = doc.select("div");
@@ -73,10 +77,7 @@ public class DataInsert{
 					}
 					
 					String w_recepts[] = ie1.next().text().split("~");
-					for(int a=0; a<w_recepts.length; a++) {
-						System.out.println(w_recepts[a] + " " + a + " " + jmNm);
-					}
-					String etc = "";
+					String etc = null;
 					Date w_recept_start = null;
 					Date w_recept_end = null;
 					Date w_exam_start = null;
@@ -93,8 +94,11 @@ public class DataInsert{
 							w_exam_end = Date.valueOf(w_exams[1].replace(".", "-").trim());
 						}
 						w_presentation = Date.valueOf(ie1.next().text().replace(".", "-"));
-					} else if(w_recepts.length == 1) {
+					} else if(w_recepts.length == 1 && w_recepts[0].length() >= 1) {
 						etc = w_recepts[0];
+					} else {
+						ie1.next();
+						ie1.next();
 					}
 					
 					String p_recepts[] = ie1.next().text().split("~");
@@ -134,6 +138,7 @@ public class DataInsert{
 			System.out.println("데이터 추가 완료");
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.println(url);
 		}
     }
 }

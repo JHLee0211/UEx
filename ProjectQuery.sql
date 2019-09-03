@@ -42,6 +42,11 @@ create table short_examination(
       name varchar(30)
 );
 
+insert into short_examination values ('9999', 'test');
+insert into examinformation values ('9999', '1회', '2019-09-03', '2019-09-04', '2019-10-03', '2019-10-04', '2019-10-10', '2019-11-04', '2019-11-04', '2019-12-04', '2019-12-04', '2019-12-20', null);
+insert into examinformation_sub values ('9999', '이 시험은 09:00 정각에 시작을 합니다.', '- 필기 : 15000원  - 실기 : 30000원');
+insert into examinformation values ('9999', '2회', null, null, null, null, null, '2019-11-04', '2019-11-04', '2019-12-04', '2019-12-04', '2019-12-20', '이 시험은 특정 대상들만 시험 볼 수 있습니다.');
+
 alter database ssafyproject default character set utf8;
 alter table customerinformation convert to character set utf8;
 alter table customerinterest convert to character set utf8;
@@ -56,8 +61,6 @@ select * from customerinterest;
 select * from examinformation;
 select * from examinformation_sub;
 select * from short_examination;
-
-select jmcd from short_examination where name = '반도체장비유지보수기능사';
 
 delete from customerinformation;
 delete from customerinterest;

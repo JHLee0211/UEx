@@ -18,8 +18,8 @@ public class DataSearch {
 		/*-- insert into short_examination values(6120,"정밀측정기능사");
 		-- insert into short_examination values(0210,"화공기술사");
 		-- insert into short_examination values(7893,"제빵기능사");*/
-		int jmcd = 6120;
-		String jmNm = "정밀측정기능사";
+		int jmcd = 6990;
+		String jmNm = "석공기능사";
 		String url = "http://q-net.or.kr/crf005.do?id=crf00503s02&gSite=Q&gId=&jmCd="+jmcd+"&jmInfoDivCcd=B0&jmNm="+jmNm;
 		Document doc = null;
 

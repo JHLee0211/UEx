@@ -3,6 +3,7 @@
     $conn = mysqli_connect("localhost", "root", "", "ssafyproject");
     $data_stream = "'".$_POST['id']."','".$_POST['password']."','".$_POST['name']."','".$_POST['birth']."','".$_POST['sex']."'";
     $query = "insert into customerinformation values (".$data_stream.")";
+    mysqli_query($conn, "set names utf8");
     $result = mysqli_query($conn, $query);
 
     if($result) {

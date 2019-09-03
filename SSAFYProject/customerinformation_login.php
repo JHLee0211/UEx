@@ -3,7 +3,7 @@
     $conn = mysqli_connect("localhost", "root", "", "ssafyproject");
     $data_stream_id = "'".$_POST['id']."'";
     $query = "select password from customerinformation where id = ".$data_stream_id;
-    //$query = "select password from customerinformation where id = 'asd'";
+    mysqli_query($conn, "set names utf8");
     $res = mysqli_query($conn, $query);
     
     $result = array();
@@ -12,7 +12,7 @@
         array_push($result, array('password'=>$row[0])); 
     }
     
-    echo json_encode(array("result"=>$result));
+    echo json_encode(array("result"=>$result, JSON_UNESCAPED_UNICODE));
     
     mysqli_close($conn);
 ?>

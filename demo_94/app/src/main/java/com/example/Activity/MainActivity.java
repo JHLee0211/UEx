@@ -10,7 +10,7 @@ import android.widget.Button;
 import com.example.demo_94.R;
 
 public class MainActivity extends AppCompatActivity {
-    private Button main_btn_output, main_btn_login, main_btn_signup;
+    private Button main_btn_output, main_btn_login, main_btn_signup, main_btn_search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         main_btn_output = (Button)findViewById(R.id.main_btn_output);
         main_btn_login = (Button)findViewById(R.id.main_btn_login);
         main_btn_signup = (Button)findViewById(R.id.main_btn_signup);
+        main_btn_search = (Button)findViewById(R.id.main_btn_search);
 
         main_btn_signup.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -42,6 +43,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                intent.putExtra("message", getApplicationContext().toString());
+                startActivity(intent);
+            }
+        });
+
+        main_btn_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
                 intent.putExtra("message", getApplicationContext().toString());
                 startActivity(intent);
             }
