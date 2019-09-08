@@ -48,9 +48,9 @@ public class SearchTest {
         }
     }
 
-    public String searchtest2(final String jmNm) {
+    public String searchtest2(final String jmcd) {
         try {
-            String postData = "jmNm=" + jmNm;
+            String postData = "jmcd=" + jmcd;
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             conn.setRequestMethod("POST");
@@ -80,9 +80,9 @@ public class SearchTest {
         }
     }
 
-    public String searchtest3(final String jmNm) {
+    public String searchtest3(final String jmcd) {
         try {
-            String postData = "jmNm=" + jmNm;
+            String postData = "jmcd=" + jmcd;
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             conn.setRequestMethod("POST");

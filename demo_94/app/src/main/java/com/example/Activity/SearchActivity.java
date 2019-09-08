@@ -53,25 +53,24 @@ public class SearchActivity extends AppCompatActivity {
                     JSONObject jsonobj = new JSONObject(jsonString);
                     JSONArray result = jsonobj.getJSONArray("result");
 
+                    ArrayList<HashMap<String, String>> examList = new ArrayList<HashMap<String, String>>();
+
                     if(result.length() == 0) {
-                        AlertDialog.Builder alert = new AlertDialog.Builder(SearchActivity.this);
-                        alert.setTitle("Error");
-                        alert.setMessage(getString(R.string.notexist_jmnm));
-                        alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                            }
-                        });
-                        alert.show();
+                        examList.clear();
+                        HashMap<String, String> exams = new HashMap<String, String>();
+                        exams.put("round", "미안해요..");
+                        exams.put("data", "해당 자격증이 존재하지 않습니다.");
+                        examList.add(exams);
                     }
 
                     else {
-                        JSONObject c = result.getJSONObject(0);
-                        String jmNm = c.getString("jmcd");
+                        examList.clear();
 
-                        ArrayList<HashMap<String, String>> examList = new ArrayList<HashMap<String, String>>();
+                        JSONObject c = result.getJSONObject(0);
+                        String jmcd = c.getString("jmcd");
+
                         searchtest.setUrl("http://"+curip+"/SSAFYProject/examinformation_search.php");
-                        jsonString = searchtest.searchtest2(jmNm);
+                        jsonString = searchtest.searchtest2(jmcd);
 
                         jsonobj = new JSONObject(jsonString);
                         result = jsonobj.getJSONArray("result");
@@ -95,9 +94,27 @@ public class SearchActivity extends AppCompatActivity {
                             examList.add(exams);
                         }
 
-                        ListAdapter adapter = new SimpleAdapter(SearchActivity.this, examList, R.layout.list_item2, new String[]{"round", "data"}, new int[]{R.id.item2_text_round, R.id.item2_text_data});
-                        search_listview_search.setAdapter((adapter));
+                        searchtest.setUrl("http://"+curip+"/SSAFYProject/examinformation_sub_search.php");
+                        jsonString = searchtest.searchtest3(jmcd);
+
+                        jsonobj = new JSONObject(jsonString);
+                        result = jsonobj.getJSONArray("result");
+
+                        c = result.getJSONObject(0);
+                        String title = "세부사항";
+                        String data = "";
+                        data = data + c.getString("caution") + "\n\n";
+                        data = data + c.getString("price");
+
+                        HashMap<String, String> exams = new HashMap<String, String>();
+                        exams.put("round", title);
+                        exams.put("data", data);
+
+                        examList.add(exams);
                     }
+
+                    ListAdapter adapter = new SimpleAdapter(SearchActivity.this, examList, R.layout.list_item2, new String[]{"round", "data"}, new int[]{R.id.item2_text_round, R.id.item2_text_data});
+                    search_listview_search.setAdapter((adapter));
                 }
                 catch (MalformedURLException | JSONException e) {
                     e.printStackTrace();
