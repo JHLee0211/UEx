@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.Activity.MainActivity;
 import com.example.demo_94.R;
@@ -52,41 +53,29 @@ public class LoginActivity extends AppCompatActivity {
                     String jsonString = logintest.logintest(String.valueOf(login_edit_id.getText()), String.valueOf(login_edit_password.getText()));
 
                     JSONObject jsonobj = new JSONObject(jsonString);
-                    JSONArray mypassword = jsonobj.getJSONArray("result");
+                    JSONArray result = jsonobj.getJSONArray("result");
 
-                    if(mypassword.length() == 0) {
+                    JSONObject c = result.getJSONObject(0);
+                    String IsLogin = c.getString("IsLogin");
+
+                    if(IsLogin.equals("Y")) {
+                        Toast.makeText(getApplication(),getString(R.string.success_login),Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        MainActivity.cur_id = String.valueOf(login_edit_id.getText());
+                        MainActivity.cur_session = true;
+                        startActivity(intent);
+                    }
+                    else {
+                        MainActivity.cur_session = false;
                         AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
                         alert.setTitle("Error");
-                        alert.setMessage(getString(R.string.notexist_password));
+                        alert.setMessage(getString(R.string.error_login));
                         alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                             }
                         });
                         alert.show();
-                    }
-
-                    else {
-                        JSONObject c = mypassword.getJSONObject(0);
-                        String pw = c.getString("password");
-
-                        login_text_test.setText(pw.equals(login_edit_password.getText().toString())+"");
-
-                        if(pw.equals(login_edit_password.getText().toString())) {
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                            startActivity(intent);
-                        }
-                        else {
-                            AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
-                            alert.setTitle("Error");
-                            alert.setMessage(getString(R.string.error_password));
-                            alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                }
-                            });
-                            alert.show();
-                        }
                     }
                 }
                 catch (MalformedURLException | JSONException e) {

@@ -8,9 +8,10 @@
     <string name="duplicate_id">중복된 아이디가 존재합니다.</string>
 
     <string name="success_signin">회원가입에 성공했습니다.</string>
+    <string name="success_login">로그인에 성공했습니다.</string>
 
     <string name="error_signin">회원가입에 실패했습니다.</string>
-    <string name="error_password">비밀번호가 틀렸습니다.</string>
+    <string name="error_login">로그인에 실패했습니다.</string>
 
     <string name="check_birth">생년월일을 확인해주세요.</string>
 
