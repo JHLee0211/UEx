@@ -12,6 +12,7 @@
 
     <string name="error_signin">회원가입에 실패했습니다.</string>
     <string name="error_login">로그인에 실패했습니다.</string>
+    <string name="error_loginservice">로그인이 필요합니다.</string>
 
     <string name="check_birth">생년월일을 확인해주세요.</string>
 

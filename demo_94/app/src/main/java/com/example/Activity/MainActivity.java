@@ -77,9 +77,21 @@ public class MainActivity extends AppCompatActivity {
         main_btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-                intent.putExtra("message", getApplicationContext().toString());
-                startActivity(intent);
+                if(new SessionCheck().sessioncheck()) {
+                    Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                    intent.putExtra("message", getApplicationContext().toString());
+                    startActivity(intent);
+                } else {
+                    AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+                    alert.setTitle("Error");
+                    alert.setMessage(getString(R.string.error_loginservice));
+                    alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                        }
+                    });
+                    alert.show();
+                }
             }
         });
 
