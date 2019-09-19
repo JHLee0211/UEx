@@ -42,10 +42,11 @@ create table short_examination(
       name varchar(30)
 );
 
-insert into short_examination values ('9999', 'test');
-insert into examinformation values ('9999', '1회', '2019-09-03', '2019-09-04', '2019-10-03', '2019-10-04', '2019-10-10', '2019-11-04', '2019-11-04', '2019-12-04', '2019-12-04', '2019-12-20', null);
-insert into examinformation_sub values ('9999', '이 시험은 09:00 정각에 시작을 합니다.', '- 필기 : 15000원  - 실기 : 30000원');
-insert into examinformation values ('9999', '2회', null, null, null, null, null, '2019-11-04', '2019-11-04', '2019-12-04', '2019-12-04', '2019-12-20', '이 시험은 특정 대상들만 시험 볼 수 있습니다.');
+create table autologin (
+	phone_id varchar(50) primary key,
+	cookies varchar(100),
+    id varchar(30) references customerinformation(id)
+);
 
 alter database ssafyproject default character set utf8;
 alter table customerinformation convert to character set utf8;
@@ -53,6 +54,7 @@ alter table customerinterest convert to character set utf8;
 alter table examinformation convert to character set utf8;
 alter table examinformation_sub convert to character set utf8;
 alter table short_examination convert to character set utf8;
+alter table autologin convert to character set utf8;
 
 set charset utf8;
 
@@ -61,15 +63,20 @@ select * from customerinterest;
 select * from examinformation;
 select * from examinformation_sub;
 select * from short_examination;
+select * from autologin;
+
+select name from short_examination where jmcd = '0493';
 
 delete from customerinformation;
 delete from customerinterest;
 delete from examinformation;
 delete from examinformation_sub;
 delete from short_examination;
+delete from autologin;
 
 drop table customerinformation;
 drop table customerinterest;
 drop table examinformation;
 drop table examinformation_sub;
 drop table short_examination;
+drop table autologin;

@@ -9,14 +9,14 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class DuplicateCheckTest {
+public class DuplicateCheck {
     private URL url;
     private BufferedReader br;
-    public DuplicateCheckTest(String url) throws MalformedURLException {
+    public DuplicateCheck(String url) throws MalformedURLException {
         this.url = new URL(url);
     }
 
-    public String duplicatechecktest(final String id) {
+    public String duplicatecheck(final String id) {
         try {
             String postData = "id=" + id;
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
@@ -43,7 +43,7 @@ public class DuplicateCheckTest {
             return sb.toString().trim();
         }
         catch (Exception e) {
-            Log.i("duplicatechecktest", e.getMessage());
+            Log.i("duplicatecheck", e.getMessage());
             return null;
         }
     }

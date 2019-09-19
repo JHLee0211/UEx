@@ -8,20 +8,18 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
-import java.util.Map;
 
-public class LoginTest {
+public class AutoLogin {
     private URL url;
     private BufferedReader br;
 
-    public LoginTest(String url) throws MalformedURLException {
+    public AutoLogin(String url) throws MalformedURLException {
         this.url = new URL(url);
     }
 
-    public String logintest(final String id, final String password) {
+    public String autologinsignup() {
         try {
-            String postData = "id=" + id + "&" + "password=" + password;
+            String postData = "phone_id=" + MainActivity.phone_id + "&" + "cookies=" + MainActivity.cur_cookies + "&" + "id=" + MainActivity.cur_id;
 
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 
@@ -34,16 +32,6 @@ public class LoginTest {
             outputStream.write(postData.getBytes("UTF-8"));
             outputStream.flush();
             outputStream.close();
-
-            Map<String, List<String>> header = conn.getHeaderFields();
-            if (header.containsKey("Set-Cookie")) {
-                List<String> cookie = header.get("Set-Cookie");
-                for (int i = 0; i < cookie.size(); i++) {
-                    MainActivity.cur_cookies = cookie.get(i);
-                }
-            }
-
-            //CookieManager.getInstance().setCookie("http://70.12.227.10/SSAFYProject/test.php", m_cookies);
 
             StringBuilder sb = new StringBuilder();
             br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -59,7 +47,7 @@ public class LoginTest {
             return sb.toString().trim();
         }
         catch (Exception e) {
-            Log.i("logintest", e.getMessage());
+            Log.i("autologin", e.getMessage());
             return null;
         }
     }

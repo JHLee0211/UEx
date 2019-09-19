@@ -3,7 +3,6 @@ package com.example.Activity;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,7 +18,6 @@ import android.widget.Toast;
 
 import com.example.demo_94.R;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -139,8 +137,8 @@ public class SignUpActivity extends AppCompatActivity {
                         alert.show();
                     }
                     else{
-                        DuplicateCheckTest duplicatechecktest = new DuplicateCheckTest("http://"+curip+"/SSAFYProject/customerinformation_duplicatecheck.php");
-                        String checkresult = duplicatechecktest.duplicatechecktest(curid);
+                        DuplicateCheck duplicatecheck = new DuplicateCheck("http://"+curip+"/SSAFYProject/customerinformation_duplicatecheck.php");
+                        String checkresult = duplicatecheck.duplicatecheck(curid);
 
                         JSONObject jsonobj = new JSONObject(checkresult);
                         String myid = jsonobj.getJSONArray("result").getJSONObject(0).getString("id");
