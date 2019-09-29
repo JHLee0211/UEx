@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.Activity.UpdateActivity"
+    >
+
+    <TextView
+        android:id="@+id/update_text_myid"
+        android:text="My ID : "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/update_text_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/update_text_password"
+        android:text="Input Password : "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+    <EditText
+        android:id="@+id/update_edit_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/update_text_name"
+        android:text="Input Name : "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+    <EditText
+        android:id="@+id/update_edit_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Spinner
+        android:id="@+id/update_spinner_year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></Spinner>
+
+    <Spinner
+        android:id="@+id/update_spinner_month"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></Spinner>
+
+    <Spinner
+        android:id="@+id/update_spinner_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></Spinner>
+
+    <Spinner
+        android:id="@+id/update_spinner_sex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></Spinner>
+
+    <Button
+        android:id="@+id/update_btn_update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="변경하기" />
+
+    <TextView
+        android:id="@+id/update_text_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
