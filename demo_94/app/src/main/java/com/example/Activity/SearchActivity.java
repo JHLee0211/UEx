@@ -61,51 +61,53 @@ public class SearchActivity extends AppCompatActivity {
                     else {
                         examList.clear();
 
-                        JSONObject c = result.getJSONObject(0);
-                        String jmcd = c.getString("jmcd");
+                        for(int a=0; a<result.length(); a++) {
+                            JSONObject c = result.getJSONObject(a);
+                            String jmcd = c.getString("jmcd");
 
-                        searchtest.setUrl("http://"+curip+"/SSAFYProject/examinformation_search.php");
-                        jsonString = searchtest.searchtest2(jmcd);
+                            searchtest.setUrl("http://"+curip+"/SSAFYProject/examinformation_search.php");
+                            jsonString = searchtest.searchtest2(jmcd);
 
-                        jsonobj = new JSONObject(jsonString);
-                        result = jsonobj.getJSONArray("result");
+                            jsonobj = new JSONObject(jsonString);
+                            JSONArray sub_result = jsonobj.getJSONArray("result");
 
-                        for(int i=0; i<result.length(); i++) {
-                            c = result.getJSONObject(i);
-                            String round = c.getString("round");
+                            for(int i=0; i<sub_result.length(); i++) {
+                                c = sub_result.getJSONObject(i);
+                                String round = c.getString("round");
+                                String data = "";
+                                data = data + "필기시험접수 : " + c.getString("w_recept_start") + " ~ " + c.getString("w_recept_end") + "\n";
+                                data = data + "필기시험 : " + c.getString("w_exam_start") + " ~ " + c.getString("w_exam_end") + "\n";
+                                data = data + "필기발표 : " + c.getString("w_presentation") + "\n";
+                                data = data + "실기시험접수 : " + c.getString("p_recept_start") + " ~ " + c.getString("p_recept_end") + "\n";
+                                data = data + "실기시험 : " + c.getString("p_exam_start") + " ~ " + c.getString("p_exam_end") + "\n";
+                                data = data + "실기발표 : " + c.getString("p_presentation") + "\n";
+                                data = data + "비고 : " + c.getString("etc");
+
+                                HashMap<String, String> exams = new HashMap<String, String>();
+                                exams.put("round", round);
+                                exams.put("data", data);
+
+                                examList.add(exams);
+                            }
+
+                            searchtest.setUrl("http://"+curip+"/SSAFYProject/examinformation_sub_search.php");
+                            jsonString = searchtest.searchtest3(jmcd);
+
+                            jsonobj = new JSONObject(jsonString);
+                            sub_result = jsonobj.getJSONArray("result");
+
+                            c = sub_result.getJSONObject(0);
+                            String title = "세부사항";
                             String data = "";
-                            data = data + "필기시험접수 : " + c.getString("w_recept_start") + " ~ " + c.getString("w_recept_end") + "\n";
-                            data = data + "필기시험 : " + c.getString("w_exam_start") + " ~ " + c.getString("w_exam_end") + "\n";
-                            data = data + "필기발표 : " + c.getString("w_presentation") + "\n";
-                            data = data + "실기시험접수 : " + c.getString("p_recept_start") + " ~ " + c.getString("p_recept_end") + "\n";
-                            data = data + "실기시험 : " + c.getString("p_exam_start") + " ~ " + c.getString("p_exam_end") + "\n";
-                            data = data + "실기발표 : " + c.getString("p_presentation") + "\n";
-                            data = data + "비고 : " + c.getString("etc");
+                            data = data + c.getString("caution") + "\n\n";
+                            data = data + c.getString("price");
 
                             HashMap<String, String> exams = new HashMap<String, String>();
-                            exams.put("round", round);
+                            exams.put("round", title);
                             exams.put("data", data);
 
                             examList.add(exams);
                         }
-
-                        searchtest.setUrl("http://"+curip+"/SSAFYProject/examinformation_sub_search.php");
-                        jsonString = searchtest.searchtest3(jmcd);
-
-                        jsonobj = new JSONObject(jsonString);
-                        result = jsonobj.getJSONArray("result");
-
-                        c = result.getJSONObject(0);
-                        String title = "세부사항";
-                        String data = "";
-                        data = data + c.getString("caution") + "\n\n";
-                        data = data + c.getString("price");
-
-                        HashMap<String, String> exams = new HashMap<String, String>();
-                        exams.put("round", title);
-                        exams.put("data", data);
-
-                        examList.add(exams);
                     }
 
                     ListAdapter adapter = new SimpleAdapter(SearchActivity.this, examList, R.layout.list_item2, new String[]{"round", "data"}, new int[]{R.id.item2_text_round, R.id.item2_text_data});
