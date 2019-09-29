@@ -62,7 +62,6 @@ public class SignUpActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                signup_spinner_day.setSelection(1);
             }
         });
 
@@ -77,7 +76,6 @@ public class SignUpActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                signup_spinner_month.setSelection(1);
             }
         });
 
@@ -92,7 +90,6 @@ public class SignUpActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                signup_spinner_year.setSelection(1);
             }
         });
 
@@ -107,7 +104,6 @@ public class SignUpActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                signup_spinner_sex.setSelection(1);
             }
         });
 

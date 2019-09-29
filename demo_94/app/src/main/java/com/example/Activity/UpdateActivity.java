@@ -19,14 +19,17 @@ import android.widget.Toast;
 import com.example.demo_94.R;
 import com.example.dto.Customer;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
 public class UpdateActivity extends AppCompatActivity {
     private EditText update_edit_password, update_edit_name;
@@ -56,9 +59,36 @@ public class UpdateActivity extends AppCompatActivity {
         update_spinner_day = (Spinner)findViewById(R.id.update_spinner_day);
         update_btn_update = (Button)findViewById(R.id.update_btn_update);
 
+        Customer customertemp = null;
+        try {
+            UpdateSearch updatesearch = new UpdateSearch("http://"+curip+"/SSAFYProject/customerinformation_update_search.php");
+            String jsonString = updatesearch.updatesearch(MainActivity.cur_id);
+
+            JSONObject jsonobj = new JSONObject(jsonString);
+            JSONArray result = jsonobj.getJSONArray("result");
+
+            JSONObject c = result.getJSONObject(0);
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            customertemp = new Customer(c.getString("id"), c.getString("password"), c.getString("name"), format.parse(c.getString("birth")), c.getString("sex"));
+        } catch (MalformedURLException | JSONException | ParseException e) {
+            e.printStackTrace();
+        }
+
+        final Customer customer = customertemp;
+
         ArrayAdapter<String> dayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, days);
         dayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         update_spinner_day.setAdapter(dayAdapter);
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String str[] = format.format(customer.getBirth()).split("-");
+
+        for(int i=0; i<days.length; i++) {
+            if(days[i].equals(str[2])) {
+                update_spinner_day.setSelection(i);
+                break;
+            }
+        }
 
         update_spinner_day.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -67,13 +97,19 @@ public class UpdateActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                update_spinner_day.setSelection(1);
             }
         });
 
         ArrayAdapter<String> monthAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, months);
         monthAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         update_spinner_month.setAdapter(monthAdapter);
+
+        for(int i=0; i<months.length; i++) {
+            if(months[i].equals(str[1])) {
+                update_spinner_month.setSelection(i);
+                break;
+            }
+        }
 
         update_spinner_month.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -82,13 +118,19 @@ public class UpdateActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                update_spinner_month.setSelection(1);
             }
         });
 
         ArrayAdapter<String> yearAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, years);
         yearAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         update_spinner_year.setAdapter(yearAdapter);
+
+        for(int i=0; i<years.length; i++) {
+            if(years[i].equals(str[0])) {
+                update_spinner_year.setSelection(i);
+                break;
+            }
+        }
 
         update_spinner_year.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -97,13 +139,19 @@ public class UpdateActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                update_spinner_year.setSelection(1);
             }
         });
 
         ArrayAdapter<String> sexAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sexes);
         sexAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         update_spinner_sex.setAdapter(sexAdapter);
+
+        for(int i=0; i<sexes.length; i++) {
+            if(sexes[i].equals(customer.getSex())) {
+                update_spinner_sex.setSelection(i);
+                break;
+            }
+        }
 
         update_spinner_sex.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -112,17 +160,18 @@ public class UpdateActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                update_spinner_sex.setSelection(1);
             }
         });
 
-        update_text_id.setText(MainActivity.cur_id);
+        update_text_id.setText(customer.getId());
+        update_edit_password.setText(customer.getPassword());
+        update_edit_name.setText(customer.getName());
 
         update_btn_update.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 try {
                     UpdateTest updatetest = new UpdateTest("http://"+curip+"/SSAFYProject/customerinformation_update.php");
-                    String curid = String.valueOf(MainActivity.cur_id);
+                    String curid = String.valueOf(update_text_id.getText());
                     String curpassword = String.valueOf(update_edit_password.getText());
                     String curname = String.valueOf(update_edit_name.getText());
                     String date = update_spinner_year.getSelectedItem().toString() + "-" + update_spinner_month.getSelectedItem().toString() + "-" + update_spinner_day.getSelectedItem().toString();
