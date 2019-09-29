@@ -12,10 +12,10 @@
     }
     
     else {
-        //$data_stream_id = $_POST['id'];
-        //$data_stream_pw = $_POST['password'];
-        $data_stream_id = "asd";
-        $data_stream_pw = "asdf";
+        $data_stream_id = $_POST['id'];
+        $data_stream_pw = $_POST['password'];
+        //$data_stream_id = "asd";
+        //$data_stream_pw = "asdf";
     
         $query = "select password from customerinformation where id = '$data_stream_id'";
         mysqli_query($conn, "set names utf8");

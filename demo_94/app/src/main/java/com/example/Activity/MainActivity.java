@@ -3,13 +3,10 @@ package com.example.Activity;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.telephony.TelephonyManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -29,7 +26,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
-    private Button main_btn_output, main_btn_login, main_btn_signup, main_btn_search, main_btn_logout, main_btn_test;
+    private Button main_btn_output, main_btn_login, main_btn_signup, main_btn_search, main_btn_logout, main_btn_update, main_btn_test;
     private TextView main_text_hello;
     private String curip = new getIP().getInstance();
     public static boolean cur_session = false;
@@ -48,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         main_btn_logout = (Button) findViewById(R.id.main_btn_logout);
         main_btn_signup = (Button) findViewById(R.id.main_btn_signup);
         main_btn_search = (Button) findViewById(R.id.main_btn_search);
+        main_btn_update = (Button) findViewById(R.id.main_btn_update);
         main_text_hello = (TextView) findViewById(R.id.main_text_hello);
         main_btn_test = (Button)findViewById(R.id.main_btn_test);
 
@@ -83,6 +81,27 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.putExtra("message", getApplicationContext().toString());
                 startActivity(intent);
+            }
+        });
+
+        main_btn_update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (new SessionCheck().sessioncheck()) {
+                    Intent intent = new Intent(getApplicationContext(), UpdateActivity.class);
+                    intent.putExtra("message", getApplicationContext().toString());
+                    startActivity(intent);
+                } else {
+                    AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+                    alert.setTitle("Error");
+                    alert.setMessage(getString(R.string.error_loginservice));
+                    alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                        }
+                    });
+                    alert.show();
+                }
             }
         });
 
@@ -160,10 +179,12 @@ public class MainActivity extends AppCompatActivity {
             main_text_hello.setText(cur_id + "님 반갑습니다!");
             main_btn_login.setVisibility(View.GONE);
             main_btn_logout.setVisibility(View.VISIBLE);
+            main_btn_update.setVisibility(View.VISIBLE);
         } else {
             main_text_hello.setText("");
             main_btn_login.setVisibility(View.VISIBLE);
             main_btn_logout.setVisibility(View.GONE);
+            main_btn_update.setVisibility(View.GONE);
         }
     }
 }
