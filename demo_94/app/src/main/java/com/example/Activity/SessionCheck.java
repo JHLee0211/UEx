@@ -2,11 +2,14 @@ package com.example.Activity;
 
 import android.util.Log;
 
+import com.example.dao.PHPConntection;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.lang.ref.PhantomReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -23,27 +26,15 @@ public class SessionCheck {
                 conn.setRequestProperty("Cookie", MainActivity.cur_cookies);
             }
 
-            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            conn.setRequestMethod("POST");
-            conn.setConnectTimeout(5000);
-            conn.setDoOutput(true);
-            conn.setDoInput(true);
-
-            StringBuilder sb = new StringBuilder();
-            br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-            String jsonString = null;
-            while((jsonString = br.readLine()) != null) {
-                sb.append(jsonString + "\n");
-            }
-
+            PHPConntection conntection = new PHPConntection(conn);
+            conntection.output();
+            String result = conntection.input();
             conn.disconnect();
 
-            jsonString = sb.toString().trim();
-            JSONObject jsonobj = new JSONObject(jsonString);
-            JSONArray result = jsonobj.getJSONArray("result");
+            JSONObject jsonobj = new JSONObject(result);
+            JSONArray results = jsonobj.getJSONArray("result");
 
-            JSONObject c = result.getJSONObject(0);
+            JSONObject c = results.getJSONObject(0);
             String IsLogin = c.getString("IsLogin");
 
             if(IsLogin.equals("Y"))

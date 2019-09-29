@@ -3,6 +3,8 @@ package com.example.Activity;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.dao.Alert;
 import com.example.demo_94.R;
 
 import org.json.JSONException;
@@ -141,27 +144,13 @@ public class SignUpActivity extends AppCompatActivity {
 
                         if(curid.equals(myid)) {
                             Toast.makeText(getApplication(), getString(R.string.duplicate_id), Toast.LENGTH_SHORT).show();
-                            AlertDialog.Builder alert = new AlertDialog.Builder(SignUpActivity.this);
-                            alert.setTitle("Error");
-                            alert.setMessage(getString(R.string.duplicate_id));
-                            alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                }
-                            });
-                            alert.show();
+                            Alert alert = new Alert(SignUpActivity.this, "Error", getString(R.string.duplicate_id));
+                            alert.alert();
                         }
                         else {
                             Toast.makeText(getApplication(),getString(R.string.error_signin),Toast.LENGTH_SHORT).show();
-                            AlertDialog.Builder alert = new AlertDialog.Builder(SignUpActivity.this);
-                            alert.setTitle("Error");
-                            alert.setMessage(R.string.error_signin);
-                            alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                }
-                            });
-                            alert.show();
+                            Alert alert = new Alert(SignUpActivity.this, "Error", getString(R.string.error_signin));
+                            alert.alert();
                         }
                     }
                 }
@@ -170,15 +159,8 @@ public class SignUpActivity extends AppCompatActivity {
                 }
                 catch (NumberFormatException e) {
                     e.printStackTrace();
-                    AlertDialog.Builder alert = new AlertDialog.Builder(SignUpActivity.this);
-                    alert.setTitle("Error");
-                    alert.setMessage(getString(R.string.check_birth));
-                    alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                        }
-                    });
-                    alert.show();
+                    Alert alert = new Alert(SignUpActivity.this, "Error", getString(R.string.check_birth));
+                    alert.alert();
                 }
             }
         });

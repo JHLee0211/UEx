@@ -4,7 +4,7 @@ public class getIP {
     private String curip;
 
     public getIP() {
-        this.curip = "172.30.1.24";
+        this.curip = "192.168.0.9";
     }
 
     public String getInstance() {

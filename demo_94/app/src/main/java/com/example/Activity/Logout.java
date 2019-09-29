@@ -2,6 +2,8 @@ package com.example.Activity;
 
 import android.util.Log;
 
+import com.example.dao.PHPConntection;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -11,7 +13,7 @@ import java.net.URL;
 public class Logout {
     private String curip = new getIP().getInstance();
 
-    public void logout() {
+    public String logout() {
         try {
             URL url = new URL("http://"+curip+"/SSAFYProject/customerinformation_logout.php");
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
@@ -20,46 +22,28 @@ public class Logout {
                 conn.setRequestProperty("Cookie", MainActivity.cur_cookies);
             }
 
-            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            conn.setRequestMethod("POST");
-            conn.setConnectTimeout(5000);
-            conn.setDoOutput(true);
-            conn.setDoInput(true);
+            PHPConntection conntection = new PHPConntection(conn);
+            conntection.output();
 
             String postData = "phone_id=" + MainActivity.phone_id;
-
             url = new URL("http://"+curip+"/SSAFYProject/customerinformation_autologinsignout.php");
             conn = (HttpURLConnection)url.openConnection();
-
-            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            conn.setRequestMethod("POST");
-            conn.setConnectTimeout(5000);
-            conn.setDoOutput(true);
-            conn.setDoInput(true);
-            OutputStream outputStream = conn.getOutputStream();
-            outputStream.write(postData.getBytes("UTF-8"));
-            outputStream.flush();
-            outputStream.close();
-
+            conntection = new PHPConntection(conn);
+            conntection.output(postData);
             // 이걸왜 해야되지..?
-            StringBuilder sb = new StringBuilder();
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-            String jsonString = null;
-            while ((jsonString = br.readLine()) != null) {
-                sb.append(jsonString + "\n");
-            }
+            String result = conntection.input();
             // 여기까지
-
             conn.disconnect();
 
             MainActivity.cur_session = false;
             MainActivity.cur_cookies = "";
             MainActivity.cur_id = "";
+
+            return result;
         }
         catch (Exception e) {
             Log.i("logout", e.getMessage());
-            return;
+            return null;
         }
     }
 }

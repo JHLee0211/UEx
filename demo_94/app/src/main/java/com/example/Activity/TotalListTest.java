@@ -2,6 +2,8 @@ package com.example.Activity;
 
 import android.util.Log;
 
+import com.example.dao.PHPConntection;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -18,23 +20,11 @@ public class TotalListTest {
     public String totallisttest() {
         try {
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            conn.setRequestMethod("POST");
-            conn.setConnectTimeout(5000);
-            conn.setDoOutput(true);
-            conn.setDoInput(true);
-
-            StringBuilder sb = new StringBuilder();
-            br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-            String jsonString;
-            while((jsonString = br.readLine()) != null) {
-                sb.append(jsonString + "\n");
-            }
-
+            PHPConntection conntection = new PHPConntection(conn);
+            conntection.output();
+            String result = conntection.input();
             conn.disconnect();
-
-            return sb.toString().trim();
+            return result;
         }
         catch (Exception e) {
             Log.i("totallisttest", e.getMessage());

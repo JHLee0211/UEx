@@ -4,32 +4,34 @@ import android.util.Log;
 
 import com.example.dao.PHPConntection;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class DuplicateCheck {
+public class WithDraw {
     private URL url;
-    private BufferedReader br;
-    public DuplicateCheck(String url) throws MalformedURLException {
+
+    public WithDraw(String url) throws MalformedURLException {
         this.url = new URL(url);
     }
 
-    public String duplicatecheck(final String id) {
+    public String withdraw(String id) {
         try {
             String postData = "id=" + id;
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-            PHPConntection conntection = new PHPConntection(conn);
-            conntection.output(postData);
-            String result = conntection.input();
+            PHPConntection connect = new PHPConntection(conn);
+            connect.output(postData);
+            String result = connect.input();
             conn.disconnect();
+
+            MainActivity.cur_cookies = "";
+            MainActivity.cur_id = "";
+            MainActivity.cur_session = false;
+
             return result;
         }
         catch (Exception e) {
-            Log.i("duplicatecheck", e.getMessage());
+            Log.i("withdraw", e.getMessage());
             return null;
         }
     }

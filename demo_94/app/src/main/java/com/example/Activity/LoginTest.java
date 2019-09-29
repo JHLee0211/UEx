@@ -2,6 +2,8 @@ package com.example.Activity;
 
 import android.util.Log;
 
+import com.example.dao.PHPConntection;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -22,18 +24,9 @@ public class LoginTest {
     public String logintest(final String id, final String password) {
         try {
             String postData = "id=" + id + "&" + "password=" + password;
-
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-
-            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            conn.setRequestMethod("POST");
-            conn.setConnectTimeout(5000);
-            conn.setDoOutput(true);
-            conn.setDoInput(true);
-            OutputStream outputStream = conn.getOutputStream();
-            outputStream.write(postData.getBytes("UTF-8"));
-            outputStream.flush();
-            outputStream.close();
+            PHPConntection conntection = new PHPConntection(conn);
+            conntection.output(postData);
 
             Map<String, List<String>> header = conn.getHeaderFields();
             if (header.containsKey("Set-Cookie")) {
@@ -43,20 +36,12 @@ public class LoginTest {
                 }
             }
 
-            //CookieManager.getInstance().setCookie("http://70.12.227.10/SSAFYProject/test.php", m_cookies);
-
-            StringBuilder sb = new StringBuilder();
-            br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-            String jsonString;
-            while((jsonString = br.readLine()) != null) {
-                sb.append(jsonString + "\n");
-            }
-
-            //int responseCode = conn.getResponseCode();
+            String result = conntection.input();
             conn.disconnect();
+            return result;
 
-            return sb.toString().trim();
+            //CookieManager.getInstance().setCookie("http://70.12.227.10/SSAFYProject/test.php", m_cookies);
+            //int responseCode = conn.getResponseCode();
         }
         catch (Exception e) {
             Log.i("logintest", e.getMessage());

@@ -2,6 +2,7 @@ package com.example.Activity;
 
 import android.util.Log;
 
+import com.example.dao.PHPConntection;
 import com.example.dto.Customer;
 
 import java.io.BufferedReader;
@@ -25,27 +26,11 @@ public class UpdateSearch {
         try {
             String postData = "id=" + id;
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            conn.setRequestMethod("POST");
-            conn.setConnectTimeout(5000);
-            conn.setDoOutput(true);
-            conn.setDoInput(true);
-            OutputStream outputStream = conn.getOutputStream();
-            outputStream.write(postData.getBytes("UTF-8"));
-            outputStream.flush();
-            outputStream.close();
-
-            StringBuilder sb = new StringBuilder();
-            br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-            String jsonString;
-            while((jsonString = br.readLine()) != null) {
-                sb.append(jsonString + "\n");
-            }
-
+            PHPConntection conntection = new PHPConntection(conn);
+            conntection.output(postData);
+            String result = conntection.input();
             conn.disconnect();
-
-            return sb.toString().trim();
+            return result;
         }
         catch (Exception e) {
             Log.i("updatesearch", e.getMessage());

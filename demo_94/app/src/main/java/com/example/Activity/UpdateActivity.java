@@ -16,6 +16,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.dao.Alert;
 import com.example.demo_94.R;
 import com.example.dto.Customer;
 
@@ -215,15 +216,8 @@ public class UpdateActivity extends AppCompatActivity {
                 }
                 catch (NumberFormatException | ParseException e) {
                     e.printStackTrace();
-                    AlertDialog.Builder alert = new AlertDialog.Builder(UpdateActivity.this);
-                    alert.setTitle("Error");
-                    alert.setMessage(getString(R.string.check_birth));
-                    alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                        }
-                    });
-                    alert.show();
+                    Alert alert = new Alert(UpdateActivity.this, "Error", getString(R.string.check_birth));
+                    alert.alert();
                 }
             }
         });

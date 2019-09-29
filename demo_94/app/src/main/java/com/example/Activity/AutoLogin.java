@@ -2,6 +2,8 @@ package com.example.Activity;
 
 import android.util.Log;
 
+import com.example.dao.PHPConntection;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -20,31 +22,12 @@ public class AutoLogin {
     public String autologinsignup() {
         try {
             String postData = "phone_id=" + MainActivity.phone_id + "&" + "cookies=" + MainActivity.cur_cookies + "&" + "id=" + MainActivity.cur_id;
-
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-
-            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            conn.setRequestMethod("POST");
-            conn.setConnectTimeout(5000);
-            conn.setDoOutput(true);
-            conn.setDoInput(true);
-            OutputStream outputStream = conn.getOutputStream();
-            outputStream.write(postData.getBytes("UTF-8"));
-            outputStream.flush();
-            outputStream.close();
-
-            StringBuilder sb = new StringBuilder();
-            br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-            String jsonString;
-            while((jsonString = br.readLine()) != null) {
-                sb.append(jsonString + "\n");
-            }
-
-            //int responseCode = conn.getResponseCode();
+            PHPConntection conntection = new PHPConntection(conn);
+            conntection.output(postData);
+            String result = conntection.input();
             conn.disconnect();
-
-            return sb.toString().trim();
+            return result;
         }
         catch (Exception e) {
             Log.i("autologin", e.getMessage());

@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.dao.Alert;
 import com.example.demo_94.R;
 
 import org.json.JSONArray;
@@ -61,29 +62,16 @@ public class LoginActivity extends AppCompatActivity {
                         MainActivity.cur_session = true;
                         jsonString = new AutoLogin("http://"+curip+"/SSAFYProject/customerinformation_autologinsignup.php").autologinsignup();
                         if(jsonString.equals("-1")) {
-                            AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
-                            alert.setTitle("Error");
-                            alert.setMessage("autologin error");
-                            alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                }
-                            });
-                            alert.show();
+                            Alert alert = new Alert(LoginActivity.this, "Error", getString(R.string.error_autologin));
+                            alert.alert();
+                        } else {
+                            startActivity(intent);
                         }
-                        startActivity(intent);
                     }
                     else {
                         MainActivity.cur_session = false;
-                        AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
-                        alert.setTitle("Error");
-                        alert.setMessage(getString(R.string.error_login));
-                        alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                            }
-                        });
-                        alert.show();
+                        Alert alert = new Alert(LoginActivity.this, "Error", getString(R.string.error_login));
+                        alert.alert();
                     }
                 }
                 catch (MalformedURLException | JSONException e) {
