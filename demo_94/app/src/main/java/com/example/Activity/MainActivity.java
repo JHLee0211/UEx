@@ -26,7 +26,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
-    private Button main_btn_output, main_btn_login, main_btn_signup, main_btn_search, main_btn_logout, main_btn_update, main_btn_test;
+    private Button main_btn_output, main_btn_login, main_btn_signup, main_btn_search, main_btn_logout, main_btn_update, main_btn_test, main_btn_withdraw;
     private TextView main_text_hello;
     private String curip = new getIP().getInstance();
     public static boolean cur_session = false;
@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         main_btn_update = (Button) findViewById(R.id.main_btn_update);
         main_text_hello = (TextView) findViewById(R.id.main_text_hello);
         main_btn_test = (Button)findViewById(R.id.main_btn_test);
+        main_btn_withdraw=(Button)findViewById(R.id.main_btn_withdraw);
 
         main_btn_signup.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -79,6 +80,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 new Logout().logout();
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra("message", getApplicationContext().toString());
+                startActivity(intent);
+            }
+        });
+        
+        main_btn_withdraw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), WithdrawActivity.class);
                 intent.putExtra("message", getApplicationContext().toString());
                 startActivity(intent);
             }

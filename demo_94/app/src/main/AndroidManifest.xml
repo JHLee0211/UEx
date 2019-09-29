@@ -15,6 +15,7 @@
         <activity android:name="com.example.Activity.TotalListActivity" />
         <activity android:name="com.example.Activity.SignUpActivity" />
         <activity android:name="com.example.Activity.LoginActivity" />
+        <activity android:name="com.example.Activity.WithdrawActivity"/>
         <activity android:name="com.example.Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
