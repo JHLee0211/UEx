@@ -1,6 +1,5 @@
 <?php
 session_start();
-
     header("Content-Type: text/html;charset=UTF-8");
     $conn = mysqli_connect("localhost", "root", "", "ssafyproject");
     
@@ -9,6 +8,7 @@ session_start();
     $data_stream_phone_id = $_POST["phone_id"];
     
     $query = "select * from autologin where phone_id = '$data_stream_phone_id'";
+    //$query = "select * from autologin where phone_id = 'data_stream_phone_id'";
     mysqli_query($conn, "set names utf8");
     $res = mysqli_query($conn, $query);
     

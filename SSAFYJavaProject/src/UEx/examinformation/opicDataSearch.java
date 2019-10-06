@@ -13,14 +13,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class DataSearch {
+public class opicDataSearch {
 	public static void main(String[] args) {
-		/*-- insert into short_examination values(6120,"정밀측정기능사");
-		-- insert into short_examination values(0210,"화공기술사");
-		-- insert into short_examination values(7893,"제빵기능사");*/
-		int jmcd = 6990;
-		String jmNm = "석공기능사";
-		String url = "http://q-net.or.kr/crf005.do?id=crf00503s02&gSite=Q&gId=&jmCd="+jmcd+"&jmInfoDivCcd=B0&jmNm="+jmNm;
+		String url = "http://www.opic.or.kr/opics/servlet/controller.opic.site.receipt.ExamReceiptServlet?p_process=select-list&p_nav=1_1";
 		Document doc = null;
 
 		try {
@@ -29,8 +24,7 @@ public class DataSearch {
 			e.printStackTrace();
 		}
 		
-		Elements element = doc.select("div");
-		System.out.println(element);
+		Elements element = doc.select(".pExam > table > tbody");
 		
 		System.out.println("======================================");
 		System.out.println("======================================");
@@ -38,19 +32,16 @@ public class DataSearch {
 		System.out.println("======================================");
 		
 		Iterator<Element> ie1 = element.select("td").iterator();
-		Iterator<Element> ie2 = element.select("li").iterator();
-		Iterator<Element> ie3 = element.select("dd").iterator();
 		
-		while(ie2.hasNext()) {
-			System.out.println("ie2 = " + ie2.next().text());
-		}
-		
-		while(ie3.hasNext()) {
-			System.out.println("ie3 = " + ie3.next().text());
-		}
-		
+		int idx = 0;
 		while(ie1.hasNext()) {
-			System.out.println("ie1 = " + ie1.next().text());
+			if(idx == 1 || idx == 3 || idx == 5) {
+				ie1.next().text();
+			} else {
+				System.out.println(ie1.next().text());
+			}
+			idx++;
+			idx = idx % 6;
 		}
 	}
 }

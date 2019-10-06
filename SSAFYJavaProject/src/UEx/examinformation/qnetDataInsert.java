@@ -6,17 +6,14 @@ import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Iterator;
-import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-public class DataInsert{
+public class qnetDataInsert{
     public static void main(String[] args) throws Exception{
     	String URL = "jdbc:mysql://localhost:3306/ssafyproject?useUnicode=true&characterEncoding=UTF8&jdbcCompliantTruncation=false&useOldUTF8Behavior&serverTimezone=UTC";
 		String username = "root";
@@ -27,7 +24,7 @@ public class DataInsert{
 		PreparedStatement pstmt = null;
 		ResultSet rs=null;
 		
-		Calendar cal = Calendar.getInstance();
+		Calendar cal = Calendar.getInstance();                                                                                                     
 		
 		String url = "";
 		
@@ -69,7 +66,7 @@ public class DataInsert{
 				}
 				
 				while(ie1.hasNext()) {
-					String sqls = "insert into examinformation values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					String sqls = "insert into examinformation values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 					pstmt = con.prepareStatement(sqls);
 					String round = ie1.next().text();
 					if(round.length() <= 4 || !round.substring(0, 4).equals(cal.get(Calendar.YEAR)+"")) {
@@ -122,6 +119,7 @@ public class DataInsert{
 					pstmt.setDate(11, p_exam_end);
 					pstmt.setDate(12, p_presentation);
 					pstmt.setString(13, etc);
+					pstmt.setString(14, "http://www.q-net.or.kr/crf005.do?id=crf00501&gSite=Q&gId=");
 					
 					pstmt.executeUpdate();
 				}

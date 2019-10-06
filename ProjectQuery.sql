@@ -29,7 +29,8 @@ create table examinformation (
     p_exam_start date,
     p_exam_end date,
     p_presentation date,
-    etc varchar(500)
+    etc varchar(500),
+    url varchar(500)
 );
 
 create table examinformation_sub (
@@ -87,3 +88,5 @@ drop table examinformation;
 drop table examinformation_sub;
 drop table short_examination;
 drop table autologin;
+
+commit;

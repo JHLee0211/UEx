@@ -1,6 +1,5 @@
 package UEx.examinformation;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -90,7 +89,7 @@ public class InitSql {
 					}
 				}
 			}
-
+			
 			System.out.println("테이블 초기화 완료");
 		} catch (Exception e) {
 			e.printStackTrace();

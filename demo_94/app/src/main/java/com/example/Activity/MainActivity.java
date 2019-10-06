@@ -149,11 +149,11 @@ public class MainActivity extends AppCompatActivity {
                 URL url = new URL("http://" + curip + "/SSAFYProject/customerinformation_autologinsearch.php");
                 String postData = "phone_id=" + phone_id + "&" + "cookies=" + cur_cookies + "&" + "id=" + cur_id;
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                PHPConntection conntection = new PHPConntection(conn);
-                conntection.output(postData);
-                String result = conntection.input();
+                PHPConntection connection = new PHPConntection(conn);
+                connection.output(postData);
+                String result = connection.input();
                 conn.disconnect();
-                if (!result.equals("-1")) {
+                if (!("-1").equals(result)) {
                     JSONObject jsonobj = new JSONObject(result);
                     JSONArray results = jsonobj.getJSONArray("result");
                     JSONObject c = results.getJSONObject(0);
