@@ -69,7 +69,7 @@ public class CalendarAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
         int viewType = getItemViewType(position);
-        if (viewType == HEADER_TYPE) { //날짜 타입 꾸미기
+        if (viewType == HEADER_TYPE) { //날짜 타입
             HeaderViewHolder holder = (HeaderViewHolder) viewHolder;
             Object item = mCalendarList.get(position);
             CalendarHeaderViewModel model = new CalendarHeaderViewModel();
@@ -77,11 +77,11 @@ public class CalendarAdapter extends RecyclerView.Adapter {
                 model.setHeaderDate((Long) item);
             }
             holder.setViewModel(model);
-        } else if (viewType == EMPTY_TYPE) { //비어있는 날짜 타입 꾸미기
+        } else if (viewType == EMPTY_TYPE) { //비어있는 날짜 타입
             EmptyViewHolder holder = (EmptyViewHolder) viewHolder;
             EmptyViewModel model = new EmptyViewModel();
             holder.setViewModel(model);
-        } else if (viewType == DAY_TYPE) { // 일자 타입 꾸미기
+        } else if (viewType == DAY_TYPE) { // 일자 타입
             DayViewHolder holder = (DayViewHolder) viewHolder;
             Object item = mCalendarList.get(position);
             CalendarViewModel model = new CalendarViewModel();
@@ -89,8 +89,9 @@ public class CalendarAdapter extends RecyclerView.Adapter {
                 //System.out.println("position = "+position + " setDate.get(i) = "+setDate.get(i));
                 if (position == setDate.get(i)) {
                     try {
-                        holder.SetTextMeal();
-                        holder.SetTextRoutine();
+                        holder.setTextStart();
+                        holder.setTextEnd();
+                        holder.setTextDday();
                     } catch (NullPointerException e) {
                         holder.SetTextFail();
                     }
@@ -109,6 +110,9 @@ public class CalendarAdapter extends RecyclerView.Adapter {
             return mCalendarList.size();
         }
         return 0;
+    }
+    public void setColor(){
+
     }
 
 
@@ -150,16 +154,20 @@ public class CalendarAdapter extends RecyclerView.Adapter {
             this.binding = binding;
         }
 
-        public void SetTextMeal(){
-            binding.meal.setText("식사");
+        public void setColor(){
+
         }
 
-        public void SetTextRoutine(){
-            binding.routine.setText("루틴");
+        public void setTextStart(){
+            binding.start.setText("접수시작");
         }
 
-        public void SetTextRecord(){
-           // binding.record.setText("기록");
+        public void setTextEnd(){
+            binding.end.setText("접수마감");
+        }
+
+        public void setTextDday(){
+            binding.dday.setText("시험당일");
         }
 
         public void SetTextFail(){

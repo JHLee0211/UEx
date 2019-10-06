@@ -11,7 +11,6 @@
         android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:background="@drawable/all_border"
         android:minHeight="?attr/actionBarSize"
         android:paddingBottom="8dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,7 +56,7 @@
         app:layout_constraintTop_toBottomOf="@+id/include">
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/hometraining"
+            android:id="@+id/maintab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="시험정보"

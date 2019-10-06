@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+
 import com.example.demo_94.R;
 import java.util.ArrayList;
 
@@ -17,7 +19,6 @@ public class DateDialog extends AppCompatActivity {
     private static TextView routine;
     private static TextView record;
     private Context context;
-//    private ArrayList<HashMap<String, String>> routines;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,59 +37,6 @@ public class DateDialog extends AppCompatActivity {
         lunch.setText("15:00 ~ 18:00 A형 시험");
         dinner = (TextView) findViewById(R.id.dinner);
         dinner.setText("19:00 ~ 23:00 B형 시험");
-
-//
-//        final MySQLiteOpenHelper sqliteHelper = new MySQLiteOpenHelper(a, "jelly.db", null, 3);
-//        String kakaoId = intent.getExtras().getString("kakaoId");
-//        routines = Util.SelectRoutine(kakaoId);
-
-        Bundle bundle = this.getIntent().getExtras();
- /*       HashMap<String, Integer> PosiToDate=null;
-        if(bundle != null) {
-            PosiToDate = (HashMap<String,Integer>) bundle.getSerializable("PosiToDate");
-        }
-
-        ArrayList<String> setBreak = new ArrayList<>();
-        setBreak = intent.getExtras().getStringArrayList("setBreak");
-
-        for(HashMap<String, String> t : routines) {
-            for(int i=0; i<setBreak.size(); i++) {
-                String date_mes = t.get("date_message");
-                if (date_mes.equals(setBreak.get(i))) {
-                    if (position==(PosiToDate.get(date_mes))) {
-                        morning = (TextView) findViewById(R.id.morning);
-                        morning.setText(t.get("break_message"));
-                        lunch = (TextView) findViewById(R.id.lunch);
-                        lunch.setText(t.get("lunch_message"));
-                        dinner = (TextView) findViewById(R.id.dinner);
-                        dinner.setText(t.get("dinner_message"));
-
-                        TextView per_set = (TextView) findViewById(R.id.per_set);
-                        per_set.setText(t.get("set_message"));
-                        routine = (TextView) findViewById(R.id.routine);
-                        routine.setText(t.get("routine_message"));
-                        //mBinding = DataBindingUtil.setContentView(this, R.layout.item_day);
-                        //mBinding.meal.setText("식사");
-                    }
-                }
-            }
-        }
-        HashSet<String> gED =  sqliteHelper.getExerciseData();
-
-        Iterator itr = PosiToDate..keySet().iterator();
-        while(itr.hasNext()) {
-            String is = (String)itr.next();
-            for (String time : gED) {
-                String times = time.substring(0,10);
-                System.out.println("aaaaaaaaaaaaaa" + times);
-                System.out.println("bbbbbbbbbbbbbb" + is);
-                if(is.equals(times)) {
-                    record = (TextView) findViewById(R.id.record);
-                    record.setText(sqliteHelper.getExerciseText(time));
-                    break;
-                }
-            }
-        }*/
     }
     public String getMorning(){
         return morning.getText().toString();

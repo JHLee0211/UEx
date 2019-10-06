@@ -9,24 +9,36 @@ import androidx.fragment.app.FragmentTransaction;
 import android.app.Activity;
 import android.os.Bundle;
 
+import com.bumptech.glide.util.Util;
+import com.example.Fragment.DetailFragment;
+import com.example.Fragment.FragmentAdapter;
+import com.example.Fragment.myPageFragment;
 import com.example.Fragment.basicFragment;
 import com.example.calendar.ScheduleFragment;
 import com.example.demo_94.R;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 
 public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
-
     private Fragment mainfragment = null;
     private Stack<Fragment> MAfragment = new Stack<>();
     private Stack<Fragment> SCfragment = new Stack<>();
-    private Stack<Fragment> DAfragment = new Stack<>();
+    private Stack<Fragment> TAfragment = new Stack<>();
     private Stack<Fragment> MPfragment = new Stack<>();
     private String maintitle = "";
     private int menu = -1;//1~4까지. 현재 선택 fragment 구별
+    private static FragmentAdapter fragmentAdapter;
 
+    public static FragmentAdapter getFragmentAdapter(){
+        return fragmentAdapter;
+    }
+    public static void setFragmentAdapter(FragmentAdapter fm){
+        fragmentAdapter = fm;
+        fragmentAdapter.notifyDataSetChanged();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         setSupportActionBar(toolbar);
         MAfragment.push(new basicFragment());
         SCfragment.push(new ScheduleFragment());
+        TAfragment.push(new TableActivity());
+        MPfragment.push(new myPageFragment());
 
         mainfragment = MAfragment.peek();
         maintitle = getString(R.string.app_name);
@@ -56,53 +70,24 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     }
 
     public void ChangeFragmentMain(int id, Fragment newfragment) {
-     /*   if (id != 0) {
+        if (id != 0) {
             Bundle args = new Bundle();
             args.putInt("id", id);
             switch (id) {
-                case R.id.ht_f4:
-                case R.id.ht_f5:
-                case R.id.ht_f6:
-                    Fragment ht2 = new basicFragment();
+                case R.id.interest_1:
+                case R.id.interest_2:
+                case R.id.interest_3:
+                case R.id.hottest_1:
+                case R.id.hottest_2:
+                case R.id.hottest_3:
+                    Fragment inter = new DetailFragment();
                     args.putInt("id", id);
-                    ht2.setArguments(args);
-                    HTfragment.push(ht2);
-                    mainfragment = HTfragment.peek();
-                    break;
-                case R.string.fitness_1_1:
-                case R.string.fitness_1_2:
-                case R.string.fitness_1_3:
-                    Fragment ht3 = new basicFragment();
-                    args.putInt("id", id);
-                    ht3.setArguments(args);
-                    HTfragment.push(ht3);
-                    mainfragment = HTfragment.peek();
-                    break;
-                case R.string.my_info:
-                    MPfragment.push(new basicFragment());
-                    mainfragment = MPfragment.peek();
-                    break;
-                case R.string.my_trainee:
-                    MPfragment.push(new basicFragment());
-                    mainfragment = MPfragment.peek();
-                    break;
-                case R.string.my_calender:
-                    MPfragment.push(new basicFragment());
-                    mainfragment = MPfragment.peek();
-                    break;
-
-                case R.string.logout:
-                    Logout(this);
-                    break;
-                case R.string.app_info:
-                    showSimpleDialog();
-                    break;
-                case R.string.separate:
-                    Util.DeleteUser(kakaoid + "");
-                    Logout(this);
+                    inter.setArguments(args);
+                    MAfragment.push(inter);
+                    mainfragment = MAfragment.peek();
                     break;
             }
-        }*/
+        }
         if (newfragment != null) {
             if (newfragment instanceof ScheduleFragment) {
                 SCfragment.push(newfragment);
@@ -110,6 +95,12 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
             }else if(newfragment instanceof basicFragment){
                 MAfragment.push(newfragment);
                 mainfragment=MAfragment.peek();
+            }else if(newfragment instanceof TableActivity){
+                TAfragment.push(newfragment);
+                mainfragment=TAfragment.peek();
+            }else if(newfragment instanceof myPageFragment){
+                MPfragment.push(newfragment);
+                mainfragment=MPfragment.peek();
             }
         }
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -129,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
                 menu = 2;
                 break;
             case 2:
-                mainfragment = DAfragment.peek();
+                mainfragment = TAfragment.peek();
                 menu = 3;
                 break;
             case 3:
@@ -140,15 +131,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         ChangeFragmentMain(0);
     }
 
-    private void Logout(final Activity activity) {
-        /*
-        UserManagement.getInstance().requestLogout(new LogoutResponseCallback() {
-            @Override
-            public void onCompleteLogout() {
-                Util.startLoginActivity(activity);
-            }
-        });*/
-    }
+    private void Logout(final Activity activity) {    }
 
     @Override
     public void onTabUnselected(TabLayout.Tab tab) {
@@ -182,12 +165,12 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
                 mainfragment = SCfragment.peek();
                 break;
             case 3:
-                if (DAfragment.size() > 1) {
-                    DAfragment.pop();
+                if (TAfragment.size() > 1) {
+                    TAfragment.pop();
                 } else {
                     realback = true;
                 }
-                mainfragment = DAfragment.peek();
+                mainfragment = TAfragment.peek();
                 break;
             case 4:
                 if (MPfragment.size() > 1) {

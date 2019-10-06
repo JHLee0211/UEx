@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
@@ -14,20 +15,25 @@ import com.example.demo_94.R;
 import java.util.ArrayList;
 
 public class basicFragment extends Fragment implements View.OnClickListener {
+    private static ArrayList<Integer> listImage = new ArrayList<>();
+    private static ViewPager viewPager;
+    private static ImageFragment imageFragment;
+    private static FragmentAdapter fragmentAdapter;
 
-    ArrayList<Integer> listImage;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mainfrag, container, false);
-
-        view.findViewById(R.id.ht_f4).setOnClickListener(this);
-        view.findViewById(R.id.ht_f5).setOnClickListener(this);
-        view.findViewById(R.id.ht_f6).setOnClickListener(this);
-        view.findViewById(R.id.ht_y1).setOnClickListener(this);
-        view.findViewById(R.id.ht_y2).setOnClickListener(this);
-        view.findViewById(R.id.ht_y3).setOnClickListener(this);
-        viewP(view);
+        view.findViewById(R.id.interest_1).setOnClickListener(this);
+        view.findViewById(R.id.interest_2).setOnClickListener(this);
+        view.findViewById(R.id.interest_3).setOnClickListener(this);
+        view.findViewById(R.id.hottest_1).setOnClickListener(this);
+        view.findViewById(R.id.hottest_2).setOnClickListener(this);
+        view.findViewById(R.id.hottest_3).setOnClickListener(this);
+        viewPager = (ViewPager) view.findViewById(R.id.viewPager);
+        fragmentAdapter = MainActivity.getFragmentAdapter();
+        if(listImage.size()==0) viewP(view);
+        else viewPager.setAdapter(MainActivity.getFragmentAdapter());
         return view;
     }
 
@@ -38,19 +44,14 @@ public class basicFragment extends Fragment implements View.OnClickListener {
 
     public void viewP(View view){
         // Fragment로 넘길 Image Resource
-
         listImage = new ArrayList<>();
+
         listImage.add(R.mipmap.national_exam);
         listImage.add(R.mipmap.toeic);
         listImage.add(R.mipmap.jungbo_gisa);
         listImage.add(R.mipmap.toeic_speaking);
 
-        ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewPager);
-
-        FragmentAdapter fragmentAdapter = new FragmentAdapter(getFragmentManager());
-        // ViewPager와  FragmentAdapter 연결
-        viewPager.setAdapter(fragmentAdapter);
-
+        fragmentAdapter = new FragmentAdapter(getFragmentManager());
         viewPager.setClipToPadding(false);
         int dpValue = 16;
         float d = getResources().getDisplayMetrics().density;
@@ -58,19 +59,16 @@ public class basicFragment extends Fragment implements View.OnClickListener {
         viewPager.setPadding(margin, 0, margin, 0);
         viewPager.setPageMargin(margin/2);
 
-
         // FragmentAdapter에 Fragment 추가, Image 개수만큼 추가
         for (int i = 0; i < listImage.size(); i++) {
-            ImageFragment imageFragment = new ImageFragment();
+            imageFragment = new ImageFragment();
             Bundle bundle = new Bundle();
             bundle.putInt("imgRes", listImage.get(i));
             imageFragment.setArguments(bundle);
             fragmentAdapter.addItem(imageFragment);
         }
-        fragmentAdapter.notifyDataSetChanged();
+        MainActivity.setFragmentAdapter(fragmentAdapter);
+        // ViewPager와  FragmentAdapter 연결
+       viewPager.setAdapter(MainActivity.getFragmentAdapter());
     }
-
-
-
-
 }

@@ -23,14 +23,15 @@ public class RecyclerViewOnItemClickListener extends RecyclerView.SimpleOnItemTo
             public boolean onSingleTapUp(MotionEvent e) {
                 return true;
             }
-            /*
             @Override
             public void onLongPress(MotionEvent e) {
                 View childView = recyclerView.findChildViewUnder(e.getX(), e.getY());
-                if(childView != null && mListener != null){
+                if (childView != null && mListener != null) {
                     mListener.onItemLongClick(childView, recyclerView.getChildAdapterPosition(childView));
+                    currentPosition = recyclerView.getChildAdapterPosition(childView);
+                    Toast.makeText(recyclerView.getContext(), "ddaadd"+currentPosition, Toast.LENGTH_LONG).show();
                 }
-            }*/
+            }
         });
 
     }
@@ -49,6 +50,6 @@ public class RecyclerViewOnItemClickListener extends RecyclerView.SimpleOnItemTo
 
     public interface OnItemClickListener {
         void onItemClick(View v, int position);
-        //void onItemLongClick(View v, int position);
+        void onItemLongClick(View v, int position);
     }
 }

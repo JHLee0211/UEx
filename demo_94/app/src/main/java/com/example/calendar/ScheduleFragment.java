@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -69,7 +70,6 @@ public class ScheduleFragment extends Fragment {
                             public void onItemClick(View v, int position) {
                                 Intent intent = new Intent(getActivity().getApplicationContext(), DateDialog.class);
                                 intent.putExtra("position",position);
-//                                intent.putExtra("kakaoId", ((MainActivity)getActivity()).getKakaoid() + "");
                                 intent.putIntegerArrayListExtra("setDate", model.getSetDate());
                                 intent.putStringArrayListExtra("setBreak", model.getSetBreak());
                                 Bundle extras = new Bundle();
@@ -78,11 +78,11 @@ public class ScheduleFragment extends Fragment {
 
                                 startActivityForResult(intent, 103);
                             }
-                        /*
                             @Override
                             public void onItemLongClick(View v, int position) {
-                                Toast.makeText(getApplicationContext(), "긴 클릭", Toast.LENGTH_LONG).show();
-                            }*/
+                                //setColor(model.getPosiToDate());
+                                Toast.makeText(getActivity().getApplicationContext(), "긴 클릭", Toast.LENGTH_LONG).show();
+                            }
                         }
                 ));
             }

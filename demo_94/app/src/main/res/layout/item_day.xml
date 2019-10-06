@@ -45,29 +45,35 @@
                 tools:text="1" />
 
             <TextView
-                android:id="@+id/meal"
+                android:id="@+id/start"
                 android:layout_width="226dp"
-                android:layout_height="wrap_content"
+                android:layout_height="18dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:textColor="#FE0002" />
+                android:text="test1"
+                android:textColor="#FE0002"
+                android:textSize="10dp" />
 
             <TextView
-                android:id="@+id/routine"
+                android:id="@+id/end"
                 android:layout_width="226dp"
-                android:layout_height="wrap_content"
+                android:layout_height="18dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:textColor="#13289c" />
-<!--
+                android:text="test2"
+                android:textColor="#13289c"
+                android:textSize="10dp"/>
+
             <TextView
-                android:id="@+id/record"
+                android:id="@+id/dday"
                 android:layout_width="226dp"
-                android:layout_height="wrap_content"
+                android:layout_height="18dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:textColor="#33CC33" />
-                -->
+                android:text="test3"
+                android:textColor="#33CC33"
+                android:textSize="10dp"/>
+
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

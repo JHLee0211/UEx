@@ -23,6 +23,7 @@ public class CalendarListViewModel extends AndroidViewModel {
     public TSLiveData<ArrayList<Object>> mCalendarList = new TSLiveData<>(new ArrayList<>());
     public String date;
     public int posCount=0;
+    private boolean isColor=false;
     private ArrayList<Integer> setDate = new ArrayList<>();
     private ArrayList<String> setBreak = new ArrayList<>();
     private ArrayList<HashMap<String, String>> routine;
@@ -34,6 +35,13 @@ public class CalendarListViewModel extends AndroidViewModel {
         super(application);
     }
 
+    public void setColor(){
+        isColor= (isColor)? false : true;
+    }
+
+    public boolean getColor(){
+        return isColor;
+    }
 
     public void setTitle(int position) {
         try {
@@ -74,8 +82,8 @@ public class CalendarListViewModel extends AndroidViewModel {
                     putPosiDate();
                     calendarList.add(calendar.getTimeInMillis());
 
-                    int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1; //해당 월에 시작하는 요일 -1 을 하면 빈칸을 구할 수 있겠죠 ?
-                    int max = calendar.getActualMaximum(Calendar.DAY_OF_MONTH); // 해당 월에 마지막 요일
+                    int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1; //해당 월에 시작하는 요일 -1 = 빈칸
+                    int max = calendar.getActualMaximum(Calendar.DAY_OF_MONTH); // 해당 월의 마지막 요일
 
                     for (int j = 0; j < dayOfWeek; j++) {
                         putPosiDate();
@@ -93,6 +101,9 @@ public class CalendarListViewModel extends AndroidViewModel {
 //                                setBreak.add(date);
 //                            }
 //                        }
+                        for(int k=0; k<30; k++){
+                            setDate.add(posiToDate.get(date));
+                        }
                         calendarList.add(new GregorianCalendar(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), j));
                     }
                 } catch (Exception e) {
