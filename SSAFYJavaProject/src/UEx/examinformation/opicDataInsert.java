@@ -41,11 +41,21 @@ public class opicDataInsert{
 			pstmt.setString(1, "1");
 			pstmt.executeUpdate();
 			
+			sql = "delete from examinformation_sub where jmcd = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "1");
+			pstmt.executeUpdate();
+			
+			sql = "delete from short_examination where jmcd = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "1");
+			pstmt.executeUpdate();
+
+			String jmcd = "1";
 			while(ie1.hasNext()) {
 				String sqls = "insert into examinformation values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 				pstmt = con.prepareStatement(sqls);
-				
-				String jmcd = "1";
+
 				Date p_exam_start = Date.valueOf(ie1.next().text());
 				Date p_exam_end = p_exam_start;
 				ie1.next().text(); // 시험종류
@@ -73,6 +83,39 @@ public class opicDataInsert{
 				
 				pstmt.executeUpdate();
 			}
+			
+			url = "http://www.opic.or.kr/opics/servlet/controller.opic.site.about.AboutServlet?p_process=move-page-introduce&p_nav=3_1";
+			try {
+				doc = Jsoup.connect(url).get();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			element = doc.select(".pAbout");			
+			ie1 = element.select("td").iterator();
+			String caution = "";
+			String price = "";
+			while(ie1.hasNext()) {
+				ie1.next().text();
+				caution = ie1.next().text();
+				price = ie1.next().text();
+				caution = caution + "\n" + ie1.next().text();
+				break;
+			}
+			
+			sql = "insert into examinformation_sub values (?, ?, ?)";
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, jmcd);
+			pstmt.setString(2, caution);
+			pstmt.setString(3, price);
+			pstmt.executeUpdate();
+			
+			sql = "insert into short_examination values (?, ?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, jmcd);
+			pstmt.setString(2, "OPIc");
+			pstmt.executeUpdate();
 
 			System.out.println("데이터 추가 완료");
 		} catch (Exception e) {

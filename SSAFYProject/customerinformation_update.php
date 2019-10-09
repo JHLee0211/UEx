@@ -1,6 +1,6 @@
 <?php
-    header("Content-Type: text/html;charset=UTF-8");
-    $conn = mysqli_connect("localhost", "root", "", "ssafyproject");
+    include 'connect.php';
+    $conn = db_connect();
     $data_stream_id = $_POST['id'];
     $data_stream_password = $_POST['password'];
     $data_stream_name = $_POST['name'];

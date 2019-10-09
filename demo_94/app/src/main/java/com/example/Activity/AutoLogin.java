@@ -5,8 +5,6 @@ import android.util.Log;
 import com.example.dao.PHPConntection;
 
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -23,9 +21,9 @@ public class AutoLogin {
         try {
             String postData = "phone_id=" + MainActivity.phone_id + "&" + "cookies=" + MainActivity.cur_cookies + "&" + "id=" + MainActivity.cur_id;
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-            PHPConntection conntection = new PHPConntection(conn);
-            conntection.output(postData);
-            String result = conntection.input();
+            PHPConntection connection = new PHPConntection(conn);
+            connection.output(postData);
+            String result = connection.input();
             conn.disconnect();
             return result;
         }

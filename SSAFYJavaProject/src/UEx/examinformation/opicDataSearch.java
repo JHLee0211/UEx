@@ -15,7 +15,7 @@ import org.jsoup.select.Elements;
 
 public class opicDataSearch {
 	public static void main(String[] args) {
-		String url = "http://www.opic.or.kr/opics/servlet/controller.opic.site.receipt.ExamReceiptServlet?p_process=select-list&p_nav=1_1";
+		String url = "http://www.opic.or.kr/opics/servlet/controller.opic.site.about.AboutServlet?p_process=move-page-introduce&p_nav=3_1";
 		Document doc = null;
 
 		try {
@@ -24,7 +24,7 @@ public class opicDataSearch {
 			e.printStackTrace();
 		}
 		
-		Elements element = doc.select(".pExam > table > tbody");
+		Elements element = doc.select(".pAbout");
 		
 		System.out.println("======================================");
 		System.out.println("======================================");
@@ -35,13 +35,7 @@ public class opicDataSearch {
 		
 		int idx = 0;
 		while(ie1.hasNext()) {
-			if(idx == 1 || idx == 3 || idx == 5) {
-				ie1.next().text();
-			} else {
-				System.out.println(ie1.next().text());
-			}
-			idx++;
-			idx = idx % 6;
+			System.out.println(ie1.next().text());
 		}
 	}
 }

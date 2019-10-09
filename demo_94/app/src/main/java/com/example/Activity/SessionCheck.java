@@ -8,8 +8,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.lang.ref.PhantomReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -26,9 +24,9 @@ public class SessionCheck {
                 conn.setRequestProperty("Cookie", MainActivity.cur_cookies);
             }
 
-            PHPConntection conntection = new PHPConntection(conn);
-            conntection.output();
-            String result = conntection.input();
+            PHPConntection connection = new PHPConntection(conn);
+            connection.output();
+            String result = connection.input();
             conn.disconnect();
 
             JSONObject jsonobj = new JSONObject(result);

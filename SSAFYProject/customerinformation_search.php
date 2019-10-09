@@ -1,6 +1,6 @@
 <?php
-	header("Content-Type: text/html;charset=UTF-8");
-    $conn = mysqli_connect("localhost", "root", "", "ssafyproject");
+    include 'connect.php';
+    $conn = db_connect();
     $res = mysqli_query($conn, "select * from customerinformation");
     mysqli_query($conn, "set names utf8");
     $result = array();

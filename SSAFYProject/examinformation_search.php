@@ -1,6 +1,6 @@
 <?php
-	header("Content-Type: text/html;charset=UTF-8");
-	$conn = mysqli_connect("localhost", "root", "", "ssafyproject");
+    include 'connect.php';
+    $conn = db_connect();
 	$data_stream_jmcd = $_POST['jmcd'];
 	$query = "select * from examinformation where jmcd = '$data_stream_jmcd'";
 	mysqli_query($conn, "set names utf8");

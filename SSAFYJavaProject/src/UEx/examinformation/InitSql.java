@@ -23,15 +23,7 @@ public class InitSql {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			con = DriverManager.getConnection(URL, username, password);
 			
-			String sql="delete from customerinformation";
-			pstmt=con.prepareStatement(sql);
-			pstmt.executeUpdate();
-			
-			sql="delete from customerinterest";
-			pstmt=con.prepareStatement(sql);
-			pstmt.executeUpdate();
-			
-			sql="delete from examinformation";
+			String sql="delete from examinformation";
 			pstmt=con.prepareStatement(sql);
 			pstmt.executeUpdate();
 			
@@ -42,6 +34,18 @@ public class InitSql {
 			sql="delete from short_examination";
 			pstmt=con.prepareStatement(sql);
 			pstmt.executeUpdate();
+			
+//			sql="delete from customerinformation";
+//			pstmt=con.prepareStatement(sql);
+//			pstmt.executeUpdate();
+//			
+//			sql="delete from customerinterest";
+//			pstmt=con.prepareStatement(sql);
+//			pstmt.executeUpdate();
+//			
+//			sql="delete from autologin";
+//			pstmt=con.prepareStatement(sql);
+//			pstmt.executeUpdate();
 			
 			String url = "http://www.q-net.or.kr/crf005.do?id=crf00501&gSite=Q&gId=";
 			Document doc = null;

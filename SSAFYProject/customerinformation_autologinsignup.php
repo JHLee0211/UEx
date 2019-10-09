@@ -1,6 +1,6 @@
 <?php
-    header("Content-Type: text/html;charset=UTF-8");
-    $conn = mysqli_connect("localhost", "root", "", "ssafyproject");
+    include 'connect.php';
+    $conn = db_connect();
     $data_stream_phone_id = $_POST['phone_id'];
     $data_stream_cookies = $_POST['cookies'];
     $data_stream_id = $_POST['id'];

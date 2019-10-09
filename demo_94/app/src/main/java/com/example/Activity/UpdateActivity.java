@@ -27,10 +27,8 @@ import org.json.JSONObject;
 import java.net.MalformedURLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 
 public class UpdateActivity extends AppCompatActivity {
     private EditText update_edit_password, update_edit_name;
@@ -47,9 +45,6 @@ public class UpdateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update);
         init();
-
-        Intent intent = getIntent();
-        Log.d("ACTIVITY_LC", intent.getStringExtra("message"));
 
         update_text_id = (TextView)findViewById(R.id.update_text_id);
         update_edit_password = (EditText)findViewById(R.id.update_edit_password);
@@ -76,51 +71,8 @@ public class UpdateActivity extends AppCompatActivity {
         }
 
         final Customer customer = customertemp;
-
-        ArrayAdapter<String> dayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, days);
-        dayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        update_spinner_day.setAdapter(dayAdapter);
-
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        String str[] = format.format(customer.getBirth()).split("-");
-
-        for(int i=0; i<days.length; i++) {
-            if(days[i].equals(str[2])) {
-                update_spinner_day.setSelection(i);
-                break;
-            }
-        }
-
-        update_spinner_day.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
-
-        ArrayAdapter<String> monthAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, months);
-        monthAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        update_spinner_month.setAdapter(monthAdapter);
-
-        for(int i=0; i<months.length; i++) {
-            if(months[i].equals(str[1])) {
-                update_spinner_month.setSelection(i);
-                break;
-            }
-        }
-
-        update_spinner_month.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
+        final String str[] = format.format(customer.getBirth()).split("-");
 
         ArrayAdapter<String> yearAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, years);
         yearAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
@@ -135,24 +87,81 @@ public class UpdateActivity extends AppCompatActivity {
 
         update_spinner_year.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                if(position != 0) {
+                    months = new String[13];
+                    months[0] = "월";
+                    for(int i=1; i<months.length; i++) {
+                        String temp = i+"";
+                        if(temp.length() == 1)
+                            temp = "0" + temp;
+                        months[i] = temp;
+                    }
+
+                    final String curyear = (String)adapterView.getItemAtPosition(position);
+                    ArrayAdapter<String> monthAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, months);
+                    monthAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+                    update_spinner_month.setAdapter(monthAdapter);
+
+                    for(int i=0; i<months.length; i++) {
+                        if(months[i].equals(str[1])) {
+                            update_spinner_month.setSelection(i);
+                            break;
+                        }
+                    }
+
+                    update_spinner_month.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                            if(position != 0) {
+                                String selectday = (String)adapterView.getItemAtPosition(position);
+                                Calendar cal = Calendar.getInstance();
+                                cal.set(Integer.valueOf(curyear), Integer.valueOf(selectday)-1, 1);
+                                int maxday = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+                                days = new String[maxday+1];
+                                days[0] = "일";
+                                for(int i=1; i<days.length; i++) {
+                                    String temp = i+"";
+                                    if(temp.length() == 1)
+                                        temp = "0"+temp;
+                                    days[i] = temp;
+                                }
+
+                                ArrayAdapter<String> dayAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, days);
+                                dayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+                                update_spinner_day.setAdapter(dayAdapter);
+
+                                for(int i=0; i<days.length; i++) {
+                                    if(days[i].equals(str[2])) {
+                                        update_spinner_day.setSelection(i);
+                                        break;
+                                    }
+                                }
+
+                                update_spinner_day.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                    @Override
+                                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                    }
+
+                                    @Override
+                                    public void onNothingSelected(AdapterView<?> adapterView) {
+                                    }
+                                });
+                            }
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+                        }
+                    });
+                }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
-
-        ArrayAdapter<String> sexAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sexes);
-        sexAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        update_spinner_sex.setAdapter(sexAdapter);
-
-        for(int i=0; i<sexes.length; i++) {
-            if(sexes[i].equals(customer.getSex())) {
-                update_spinner_sex.setSelection(i);
-                break;
-            }
-        }
 
         update_spinner_sex.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -229,24 +238,6 @@ public class UpdateActivity extends AppCompatActivity {
         int curyear = Calendar.getInstance().get(Calendar.YEAR);
         for(int i=1; i<years.length; i++) {
             years[i] = curyear--+"";
-        }
-
-        months = new String[13];
-        months[0] = "월";
-        for(int i=1; i<months.length; i++) {
-            String temp = i+"";
-            if(temp.length() == 1)
-                temp = "0" + temp;
-            months[i] = temp;
-        }
-
-        days = new String[32];
-        days[0] = "일";
-        for(int i=1; i<days.length; i++) {
-            String temp = i+"";
-            if(temp.length() == 1)
-                temp = "0"+temp;
-            days[i] = temp;
         }
     }
 }

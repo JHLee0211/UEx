@@ -1,10 +1,12 @@
 package com.example.dto;
 
+import java.util.Arrays;
 import java.util.Date;
 
 public class Customer {
     private String id, password, name, sex;
     private Date birth;
+    private String inter[];
 
     public Customer() {}
 
@@ -56,6 +58,14 @@ public class Customer {
         this.birth = birth;
     }
 
+    public String[] getInter() {
+        return inter;
+    }
+
+    public void setInter(String[] inter) {
+        this.inter = inter;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
@@ -64,6 +74,7 @@ public class Customer {
                 ", name='" + name + '\'' +
                 ", sex='" + sex + '\'' +
                 ", birth=" + birth +
+                ", inter=" + Arrays.toString(inter) +
                 '}';
     }
 }

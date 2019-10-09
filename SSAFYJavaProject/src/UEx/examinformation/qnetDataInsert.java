@@ -40,6 +40,9 @@ public class qnetDataInsert{
 			while(rs.next()){ //DB에 있는 값들 가져오기
 				String jmcd=rs.getString("jmcd");
 				String jmNm=rs.getString("name");
+				if(jmNm.equals("정보처리기능사")) {
+					System.out.println("input");
+				}
 				url = "http://q-net.or.kr/crf005.do?id=crf00503s02&gSite=Q&gId=&jmCd="+jmcd+"&jmInfoDivCcd=B0&jmNm="+jmNm;
 				try {
 					doc = Jsoup.connect(url).get();

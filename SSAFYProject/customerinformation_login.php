@@ -1,8 +1,7 @@
 <?php
     session_start();
-    
-    header("Content-Type: text/html;charset=UTF-8");
-    $conn = mysqli_connect("localhost", "root", "", "ssafyproject");
+    include 'connect.php';
+    $conn = db_connect();
     
     $result = array();
     

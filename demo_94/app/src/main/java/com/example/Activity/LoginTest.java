@@ -5,8 +5,6 @@ import android.util.Log;
 import com.example.dao.PHPConntection;
 
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -25,8 +23,8 @@ public class LoginTest {
         try {
             String postData = "id=" + id + "&" + "password=" + password;
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-            PHPConntection conntection = new PHPConntection(conn);
-            conntection.output(postData);
+            PHPConntection connection = new PHPConntection(conn);
+            connection.output(postData);
 
             Map<String, List<String>> header = conn.getHeaderFields();
             if (header.containsKey("Set-Cookie")) {
@@ -36,7 +34,8 @@ public class LoginTest {
                 }
             }
 
-            String result = conntection.input();
+            String result = connection.input();
+
             conn.disconnect();
             return result;
 

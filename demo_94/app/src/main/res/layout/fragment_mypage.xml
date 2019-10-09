@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical">
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_top"
+        android:minHeight="160dp"
+        android:stretchColumns="0,1,2">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/mp_profile"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:maxWidth="120dp"
+                android:maxHeight="120dp"
+                android:minWidth="120dp"
+                android:minHeight="120dp"
+                android:src="@mipmap/ghost_pen2" />
+
+            <TableLayout
+                android:layout_width="273dp"
+                android:layout_height="match_parent">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical"
+
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:weightSum="1.0">
+
+                        <TextView
+                            android:id="@+id/mp_name"
+                            android:layout_width="30dp"
+                            android:layout_height="19dp"
+                            android:text="이름"
+                            android:textColor="#000000"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/mp_name2"
+                            android:layout_width="60dp"
+                            android:layout_height="19dp"
+                            android:layout_marginTop="10dp"
+                            android:text="이종호" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical"
+                        android:paddingTop="10dp">
+
+                        <TextView
+                            android:id="@+id/mp_birth"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="생년월일"
+                            android:textColor="#000000"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/mp_birth2"
+                            android:layout_width="131dp"
+                            android:layout_height="23dp"
+                            android:layout_marginTop="10dp" />
+
+                    </LinearLayout>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="5dp"
+                        android:paddingBottom="10dp">
+
+                        <TextView
+                            android:id="@+id/interest"
+                            android:layout_width="wrap_content"
+                            android:layout_height="19dp"
+                            android:text="관심시험"
+                            android:textColor="#000000"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/mp_interest2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="KoreanHistoryExam\nICT Knight\nTOEIC" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="30px"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/sex"
+                            android:layout_width="55dp"
+                            android:layout_height="19dp"
+                            android:text="성별"
+                            android:textColor="#000000"
+                            android:textStyle="bold"
+                            tools:layout_editor_absoluteX="280dp"
+                            tools:layout_editor_absoluteY="80dp" />
+
+                        <TextView
+                            android:id="@+id/mp_sex2"
+                            android:layout_width="60dp"
+                            android:layout_height="19dp"
+                            android:layout_marginTop="10dp"
+                            android:text=""
+                            tools:layout_editor_absoluteX="280dp"
+                            tools:layout_editor_absoluteY="103dp" />
+                    </LinearLayout>
+
+                </TableRow>
+
+            </TableLayout>
+
+        </TableRow>
+    </TableLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ListView
+        android:id="@+id/mp_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp" />
+</LinearLayout>

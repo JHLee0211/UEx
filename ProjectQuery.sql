@@ -68,12 +68,17 @@ alter table autologin convert to character set utf8;
 
 set charset utf8;
 
+insert into customerinformation values ('asd', 'asd', 'asd', '1994-12-09', 'woman');
+update customerinterest set interestexam1 = '정보처리기사', interestexam2 = '정보처리기능사', interestexam3 = 'OPIc' where id = 'asd';
 select * from customerinformation;
 select * from customerinterest;
 select * from examinformation;
 select * from examinformation_sub;
 select * from short_examination;
 select * from autologin;
+
+select * from short_examination where name='정보처리기능사';
+select * from examinformation where jmcd = '6921';
 
 delete from customerinformation;
 delete from customerinterest;
