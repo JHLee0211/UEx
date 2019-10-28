@@ -20,7 +20,6 @@
         </activity>
         <activity android:name="com.example.Activity.UpdateActivity"></activity>
         <activity android:name="com.example.Activity.SearchActivity" />
-        <activity android:name="com.example.Activity.TotalListActivity" />
         <activity android:name="com.example.Activity.SignUpActivity" />
         <activity android:name="com.example.Activity.LoginActivity" />
         <activity android:name="com.example.Activity.MainActivity"

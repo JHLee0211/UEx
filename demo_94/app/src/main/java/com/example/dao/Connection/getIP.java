@@ -1,4 +1,4 @@
-package com.example.Activity;
+package com.example.dao.Connection;
 
 public class getIP {
     private String curip;

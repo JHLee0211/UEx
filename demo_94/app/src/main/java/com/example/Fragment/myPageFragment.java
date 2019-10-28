@@ -1,6 +1,5 @@
 package com.example.Fragment;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,21 +10,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
-import com.example.Activity.Logout;
+import com.example.dao.User.Logout;
 import com.example.Activity.MainActivity;
-import com.example.Activity.MainActivity2;
-import com.example.Activity.SessionCheck;
 import com.example.Activity.UpdateActivity;
-import com.example.Activity.UpdateSearch;
-import com.example.Activity.UpdateSearch_Sub;
-import com.example.Activity.WithDraw;
+import com.example.dao.User.UpdateSearch;
+import com.example.dao.User.UpdateSearch_Sub;
+import com.example.dao.User.WithDraw;
 import com.example.List.MP_List_Item;
 import com.example.List.MP_List_Item_Adapter;
-import com.example.calendar.ScheduleFragment;
-import com.example.dao.Alert;
 import com.example.demo_94.R;
 import com.example.dto.Customer;
 
@@ -37,7 +31,6 @@ import java.net.MalformedURLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class myPageFragment extends Fragment implements View.OnClickListener {
 

@@ -1,4 +1,4 @@
-package com.example.Activity;
+package com.example.Util;
 
 import android.annotation.SuppressLint;
 import android.os.StrictMode;

@@ -1,8 +1,9 @@
-package com.example.Activity;
+package com.example.dao.AutoLogin;
 
 import android.util.Log;
 
-import com.example.dao.PHPConntection;
+import com.example.Activity.MainActivity;
+import com.example.dao.Connection.PHPConntection;
 
 import java.io.BufferedReader;
 import java.net.HttpURLConnection;

@@ -14,8 +14,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.Activity.MainActivity;
 import com.example.Activity.SearchActivity;
-import com.example.Activity.TotalListActivity;
-import com.example.Activity.UpdateSearch_Sub;
+import com.example.dao.User.UpdateSearch_Sub;
 import com.example.demo_94.R;
 
 import org.json.JSONArray;

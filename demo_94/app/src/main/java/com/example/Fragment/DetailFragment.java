@@ -1,6 +1,5 @@
 package com.example.Fragment;
 
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,14 +9,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.ListAdapter;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.example.Activity.MainActivity;
-import com.example.Activity.SearchActivity;
-import com.example.Activity.SearchTest;
+import com.example.dao.Exam.SearchTest;
 import com.example.demo_94.R;
 
 import org.json.JSONArray;
@@ -25,8 +20,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class DetailFragment extends Fragment {
     public static TextView regist_start, regist_end, test_day, result_day, test_desc;

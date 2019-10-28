@@ -10,31 +10,27 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.view.KeyEvent;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.TextView;
 
-import com.bumptech.glide.util.Util;
 import com.example.Fragment.DetailFragment;
 import com.example.Fragment.FragmentAdapter;
 import com.example.Fragment.myPageFragment;
 import com.example.Fragment.basicFragment;
+import com.example.Util.NetworkUtil;
 import com.example.calendar.ScheduleFragment;
-import com.example.dao.PHPConntection;
+import com.example.dao.Connection.PHPConntection;
+import com.example.dao.Connection.getIP;
+import com.example.dao.User.UpdateSearch_Sub;
 import com.example.demo_94.R;
 import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Stack;
 
 

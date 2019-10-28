@@ -11,8 +11,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.Util.NetworkUtil;
 import com.example.dao.Alert;
-import com.example.dao.PHPConntection;
+import com.example.dao.Connection.PHPConntection;
+import com.example.dao.Connection.getIP;
+import com.example.dao.User.Logout;
+import com.example.dao.User.SessionCheck;
+import com.example.dao.User.WithDraw;
 import com.example.demo_94.R;
 
 import org.json.JSONArray;
@@ -52,14 +57,6 @@ public class MainActivity2 extends AppCompatActivity { // 혹시 몰라서 냅�
         main_btn_signup.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
-                intent.putExtra("message", getApplicationContext().toString());
-                startActivity(intent);
-            }
-        });
-
-        main_btn_output.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), TotalListActivity.class);
                 intent.putExtra("message", getApplicationContext().toString());
                 startActivity(intent);
             }

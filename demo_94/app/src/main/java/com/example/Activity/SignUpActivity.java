@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,6 +16,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dao.Alert;
+import com.example.dao.AutoLogin.DuplicateCheck;
+import com.example.dao.Connection.getIP;
+import com.example.dao.User.SignUpTest;
 import com.example.demo_94.R;
 
 import org.json.JSONException;

@@ -1,8 +1,10 @@
-package com.example.Activity;
+package com.example.dao.User;
 
 import android.util.Log;
 
-import com.example.dao.PHPConntection;
+import com.example.Activity.MainActivity;
+import com.example.dao.Connection.PHPConntection;
+import com.example.dao.Connection.getIP;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
